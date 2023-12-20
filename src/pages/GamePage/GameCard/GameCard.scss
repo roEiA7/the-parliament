@@ -1,0 +1,189 @@
+$active-background-image: linear-gradient(var(--rotate), #0074d9, #645d5c 43%, #FF4136);
+$selected-background-image: linear-gradient(var(--rotate), #FF4136, #FF4136 43%, #FF4136);
+$card-border-radius: 6px;
+$card-border-size: 4px;
+$half-card-border-size: 2px;
+$card-width: 300px;
+$card-height: 300px;
+
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+}
+
+:root {
+    --card-height: 65vh;
+    --card-width: calc(var(--card-height) / 1.5);
+}
+
+.card {
+    background: white;
+    display: inline-block;
+    margin: 32px;
+    height: $card-height;
+    width: $card-width;
+    text-align: left;
+
+    perspective: 1000px;
+    position: relative;
+    padding: $card-border-size;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+        0 2px 2px rgba(0, 0, 0, 0.1),
+        0 4px 4px rgba(0, 0, 0, 0.1),
+        0 8px 8px rgba(0, 0, 0, 0.1),
+        0 16px 16px rgba(0, 0, 0, 0.1);
+    border-radius: $card-border-radius;
+    transition: all 0.3s 0s ease-in;
+    cursor: pointer;
+    z-index: 1;
+
+
+    &:hover {
+        filter: brightness(1.1) contrast(1.1) drop-shadow(4px 8px 4px rgba(192, 192, 192, 0.579));
+    }
+
+    &::before {
+        content: "";
+        width: calc(100% + $card-border-size);
+        height: calc(100% + $card-border-size);
+        border-radius: 8px;
+        background: $active-background-image;
+        position: absolute;
+        z-index: -1;
+        top: -$half-card-border-size;
+        left: -$half-card-border-size;
+        transition: all 0.5s ease-in;
+        animation: spin 2.5s linear infinite;
+        opacity: 0;
+    }
+
+    &::after {
+        position: absolute;
+        content: "";
+        top: calc(var(--card-height) / 6);
+        left: 0;
+        right: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+        transform: scale(0.8);
+        filter: blur(calc(var(--card-height) / 6));
+        background: $active-background-image;
+        transition: all 1.5s ease-out;
+        animation: none;
+        opacity: 0;
+    }
+
+    .card__image-holder {
+        background: rgba(0, 0, 0, 0.1);
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+
+        .card__image {
+            height: 100%;
+            width: 100%;
+            transition: all 0.2s ease-in-out;
+            border-radius: $card-border-radius;
+            transition: all 0.3s ease-in;
+            display: grid;
+            place-content: center;
+
+            &::before {
+                width: $card-width;
+                height: $card-height;
+                position: absolute;
+                background: rgba(0, 0, 0, 0);
+                content: '';
+                display: flex;
+                transition: 0.3s ease-in;
+
+            }
+
+
+            &:hover {
+                transform: scale(1.05);
+            }
+
+            .card-actions {
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                font-size: 82px;
+                opacity: 0;
+                transition: all 0.2s ease-out;
+                pointer-events: none;
+
+
+            }
+        }
+    }
+
+}
+
+.card.active {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    z-index: 2;
+    cursor: unset;
+
+    &::after,
+    &::before {
+        opacity: 1;
+        animation: spin 2.5s linear infinite;
+        transition: all 1s ease-in;
+    }
+
+    .card__image {
+        &::before {
+            background: rgba(0, 0, 0, .8);
+        }
+
+        .card-actions {
+            opacity: 1;
+            cursor: pointer;
+            filter: contrast(0.4) brightness(1.5);
+            pointer-events: unset;
+
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+
+        &:hover {
+            transform: unset;
+        }
+    }
+}
+
+.card.selected {
+
+    &::after,
+    &::before {
+        background: $selected-background-image;
+    }
+
+    .card__image {
+        &::before {
+            background: rgba(255, 64, 54, 0.8);
+        }
+
+        .card-actions {
+            opacity: 0 !important;
+        }
+    }
+
+}
+
+@keyframes spin {
+    0% {
+        --rotate: 0deg;
+    }
+
+    100% {
+        --rotate: 360deg;
+    }
+}
