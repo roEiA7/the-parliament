@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { TeamColor } from "../../enums/TeamColor";
 
 interface IStyledTurnIndicatorProps {
-  activeTeamColor: TeamColor;
-  remainingTime: number;
+  active_team_color: TeamColor;
+  remaining_time: number;
 }
 
 const height = '100vh';
@@ -18,25 +18,25 @@ height: ${height};
 width: ${width};
 z-index: 3;
 pointer-events: none;
-background: linear-gradient(to right, ${({ activeTeamColor }) => activeTeamColor} 99.99%, transparent), linear-gradient(to bottom, ${({ activeTeamColor }) => activeTeamColor} 99.99%, transparent), linear-gradient(to right, ${({ activeTeamColor }) => activeTeamColor} 99.99%, transparent), linear-gradient(to bottom, ${({ activeTeamColor }) => activeTeamColor} 99.99%, transparent);
+background: linear-gradient(to right, ${({ active_team_color }) => active_team_color} 99.99%, transparent), linear-gradient(to bottom, ${({ active_team_color }) => active_team_color} 99.99%, transparent), linear-gradient(to right, ${({ active_team_color }) => active_team_color} 99.99%, transparent), linear-gradient(to bottom, ${({ active_team_color }) => active_team_color} 99.99%, transparent);
 background-size: 100% ${borderSize}, ${borderSize} 100%, 100% ${borderSize}, ${borderSize} 100%;
 background-repeat: no-repeat;
 background-position: 0px 0px, calc(${width} - ${borderSize}) 0px, 0px calc(${height} - ${borderSize}) , 0px 0px;
 
 /* &.Red-Leader{
-  animation: progressOne ${({ remainingTime }) => remainingTime}ms linear;
+  animation: progressOne ${({ remaining_time }) => remaining_time}ms linear;
 }
 
 &.Red-Detective{
-  animation: progressTwo ${({ remainingTime }) => remainingTime}ms linear;
+  animation: progressTwo ${({ remaining_time }) => remaining_time}ms linear;
 }
 
 &.Blue-Leader{
-  animation: progressThree ${({ remainingTime }) => remainingTime}ms linear;
+  animation: progressThree ${({ remaining_time }) => remaining_time}ms linear;
 }
 
 &.Blue-Detective{
-  animation: progressFour ${({ remainingTime }) => remainingTime}ms linear;
+  animation: progressFour ${({ remaining_time }) => remaining_time}ms linear;
 } */
 
 

@@ -11,7 +11,8 @@ const imgUrl = faker.image.url({ height: 300, width: 300 });
 export const cardsData: ICardData[] = Array(12).fill(null).map((_, i) => ({
     key: faker.number.int(),
     imgUrl,
-    color: i % 3 === 0 ? CardColor.Red : i % 3 === 1 ? CardColor.Blue : CardColor.Netural
+    color: i % 3 === 0 ? CardColor.Red : i % 3 === 1 ? CardColor.Blue : CardColor.Netural,
+    revealed: false,
 }))
 
 export const mockUser: IUser = {

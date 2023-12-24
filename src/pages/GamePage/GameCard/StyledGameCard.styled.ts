@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CardColor } from "../../../enums/CardColor";
+import { CardColorType } from "../../../enums/CardColor";
 
 const cardHeight = '300px';
 const cardWidth = '300px';
@@ -7,11 +7,10 @@ const cardBorderRadius = '6px';
 const cardBorderSize = '4px';
 const halfCardBorderSie = '2px';
 
-
 const activeBackgroundImage = 'linear-gradient(var(--rotate), #0074d9, #645d5c 43%, #FF4136)';
 
 interface IStyledGameCardProps {
-    cardColor: CardColor;
+    card_color: CardColorType;
 }
 
 export const StyledGameCard = styled.div<IStyledGameCardProps>`
@@ -21,7 +20,6 @@ margin: 32px;
 height: ${cardHeight};
 width: ${cardWidth};
 perspective: 1000px;
-position: relative;
 padding: ${cardBorderSize};
 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
         0 2px 2px rgba(0, 0, 0, 0.1),
@@ -31,7 +29,6 @@ box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
 border-radius: ${cardBorderRadius};
 transition: all 0.3s 0s ease-in;
 cursor: pointer;
-z-index: 1;
 
 
 &:hover {
@@ -152,7 +149,7 @@ z-index: 1;
 
     &::after,
     &::before {
-        background: ${({ cardColor }) => `linear-gradient(var(--rotate), ${cardColor}, ${cardColor} 43%, ${cardColor})`};
+        background: ${({ card_color }) => `linear-gradient(var(--rotate), ${card_color}, ${card_color} 43%, ${card_color})`};
     }
 
     &::before {
@@ -161,7 +158,7 @@ z-index: 1;
 
     .card-image {
         &::before {
-            background: ${({ cardColor }) => `${cardColor}d1`};
+            background: ${({ card_color }) => `${card_color}d1`};
         }
 
         .card-actions {

@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-export const StyledToggleContainer = styled.div`
+interface IStyledToggleContainerProps {
+	width: string;
+	height: string;
+}
+
+export const StyledToggleContainer = styled.div<IStyledToggleContainerProps>`
 .tgl {
 	display: none;
   
@@ -21,8 +26,8 @@ export const StyledToggleContainer = styled.div`
 	+ .tgl-btn {
 		outline: 0;
 		display: block;
-		width: 8em;
-		height: 2em;
+		width: ${({ width }) => width};
+		height: ${({ height }) => height};
 		position: relative;
 		cursor: pointer;
     user-select: none;
@@ -53,10 +58,15 @@ export const StyledToggleContainer = styled.div`
 	+ .tgl-btn {
 		padding: 2px;
 		transition: all .2s ease;
-		perspective: 100px;
+		perspective: 200px;
+
+		&:hover{
+			filter: brightness(0.95);
+		}
 		&:after,
     &:before {
-			display: inline-block;
+			display: grid;
+			place-content: center;
 			transition: all .4s ease;
 			width: 100%;
 			text-align: center;
@@ -68,6 +78,8 @@ export const StyledToggleContainer = styled.div`
 			left: 0;
 			backface-visibility: hidden;
 			border-radius: 4px;
+			font-size: 0.875rem;
+			font-weight: 500;
 		}
     
 		&:after {
@@ -77,7 +89,7 @@ export const StyledToggleContainer = styled.div`
 		}
     
 		&:before {
-			background: #B33A3A;
+			background: #7FC6A6;
 			content: attr(data-tg-off);
 		}
 
@@ -94,7 +106,7 @@ export const StyledToggleContainer = styled.div`
     &:after {
       transform: rotateY(0);
       left: 0;
-      background: #7FC6A6;
+      background: #B33A3A;
     }
     
     &:active:after {

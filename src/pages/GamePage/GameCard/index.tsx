@@ -21,7 +21,7 @@ const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(({
     const { imgUrl, color } = cardData;
 
     return <StyledGameCard
-        cardColor={color}
+        card_color={color}
         ref={ref}
         className={classNames('card', { active, revealed })}
         onClick={handleCardClick} >

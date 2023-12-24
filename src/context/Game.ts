@@ -1,11 +1,18 @@
+import { cardsData as mockCardsData } from './../utils/mocks';
 import { createContext } from 'react';
-import { IGameState, ITurnState } from '../interfaces/GameState.interface';
+import { ICodeState, IGameState, ITurnState } from '../interfaces/GameState.interface';
 import { Team } from '../enums/Team';
 import { Role } from '../enums/Role';
 import { v4 as uuidv4 } from 'uuid';
+import React from 'react';
+import { ICardData } from '../interfaces/CardData.interface';
 
 export interface IGameContext extends IGameState {
-    setTurn: (turn: ITurnState) => void;
+    setTurn: React.Dispatch<React.SetStateAction<ITurnState>>;
+    setCardsData: React.Dispatch<React.SetStateAction<ICardData[]>>;
+    handleCodeSubmit: (code: ICodeState) => void;
+    increaseFoundCards: () => void;
+    handleTurnOver: () => void;
 }
 
 export const defaultGameValue: IGameContext = {
@@ -16,7 +23,12 @@ export const defaultGameValue: IGameContext = {
         startTime: Date.now(),
         duration: 5000, // 3 minutes in ms
     },
-    setTurn: (turn: ITurnState) => { },
+    cardsData: mockCardsData,
+    setTurn: () => { },
+    handleCodeSubmit: () => { },
+    setCardsData: () => { },
+    increaseFoundCards: () => { },
+    handleTurnOver: () => { }
 }
 
 export const GameContext = createContext<IGameContext>(defaultGameValue);

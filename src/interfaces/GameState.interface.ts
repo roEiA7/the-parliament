@@ -1,10 +1,6 @@
 import { Role } from "../enums/Role";
 import { Team } from "../enums/Team";
-
-export interface ICodeState {
-    word: string;
-    number: number;
-}
+import { ICardData } from "./CardData.interface";
 
 export interface ITurnState {
     id: string;
@@ -14,7 +10,14 @@ export interface ITurnState {
     duration: number;
 }
 
+export interface ICodeState {
+    codeName: string;
+    codeLength: number;
+    foundCards: number;
+}
+
 export interface IGameState {
     turn: ITurnState;
     code?: ICodeState;
+    cardsData: ICardData[];
 }

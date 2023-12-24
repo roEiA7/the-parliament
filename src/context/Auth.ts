@@ -2,7 +2,9 @@ import { createContext } from 'react';
 import { IUser } from '../interfaces/user.interface';
 
 export interface IAuthContext extends Partial<IUser> {
-    setUser: (user: IUser) => void;
+    setUser: React.Dispatch<React.SetStateAction<IUser>>;
 }
 
-export const AuthContext = createContext<IAuthContext | null>(null);
+export const AuthContext = createContext<IAuthContext>({
+    setUser: () => { }
+});

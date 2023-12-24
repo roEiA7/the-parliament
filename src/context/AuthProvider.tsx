@@ -10,7 +10,7 @@ export const useAuthContext = () => {
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // const [user, setUser] = useState<IUser | null>(null);
-    const [user, setUser] = useState<IUser | null>(mockUser);
+    const [user, setUser] = useState<IUser>(mockUser);
     const value: IAuthContext = {
         ...(user && user),
         setUser,

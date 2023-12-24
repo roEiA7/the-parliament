@@ -1,9 +1,9 @@
 import React, { useState, useRef, MouseEvent } from 'react';
-import './GamePage.scss';
-import GameCard from './GameCard';
 import classNames from 'classnames';
+import { Box } from '@mui/material';
+import GameCard from './GameCard';
+import CodeLabel from './CodeLabel';
 import useClickOutside from '../../hooks/useClickOutside';
-import { cardsData } from '../../utils/mocks';
 import { CARD_REVEAL_TRANSITION } from '../../constants/transitions';
 import { StyledTurnIndicator } from './StyledTurnIndicator.styled';
 import { TeamColor } from '../../enums/TeamColor';
@@ -12,32 +12,53 @@ import { useGameContext } from '../../context/GameStateProvider';
 import { getRemainigTime } from '../../utils/time';
 import { useAuthContext } from '../../context/AuthProvider';
 import { Role } from '../../enums/Role';
-import PasswordForm from './PasswordForm';
-import StyledActionsMenu from './ActionsMenu';
+import CodeForm from './CodeForm';
+import ActionsMenu from './ActionsMenu';
 import Toggle from '../../components/Toggle';
+import './GamePage.scss';
+import DevTools from '../../components/DevTools';
+import TeamPanel from './TeamPanel';
+import { Team } from '../../enums/Team';
+
 
 function App() {
     // useTurnTimeManager();
     const [activeCard, setActiveCard] = useState<number | null>(null);
-    const [revealedCards, setRevealedCards] = useState<number[]>([]);
     const [isLeaderViewToggled, setIsLeaderViewToggled] = useState(false);
     const activeCardRef = useRef(null);
     const hasActiveCard = activeCard !== null;
     const user = useAuthContext();
-    const { turn } = useGameContext();
+    const { turn, code, cardsData, setCardsData, increaseFoundCards, handleTurnOver } = useGameContext();
     const remainingTime = getRemainigTime(turn);
-    const isTeamsTurn = turn.team === user?.team;
+    const isUserTUrn = turn.team === user?.team && turn.role === user.role;
     const isLeader = user?.role === Role.Leader;
-    const isCardsDisabled = isLeader || !isTeamsTurn;
-    const isPasswordFormEnabled = isLeader && isTeamsTurn;
-
+    const isCardsDisabled = isLeader || !isUserTUrn;
 
     const toggleLeaderView = () => setIsLeaderViewToggled(prevState => !prevState);
     const handleCardClick = (cardKey: number) => {
         setActiveCard(cardKey);
     };
     const handleCardSelection = (cardKey: number) => {
-        setRevealedCards(prevState => [...prevState, cardKey]);
+        setCardsData(prevData => {
+            return prevData.map(card => {
+                const isRevealedCard = card.key === cardKey;
+                return {
+                    ...card,
+                    ...(isRevealedCard && { revealed: true })
+                }
+            })
+        });
+
+        const isUserTeamCard = user.team && cardsData.find(card => card.key === cardKey)?.color === TeamColor[user.team];
+        if (isUserTeamCard) {
+            increaseFoundCards();
+            if (code && code.codeLength === code.foundCards + 1) {
+                handleTurnOver();
+            }
+        } else {
+            handleTurnOver();
+        }
+
         setTimeout(() => {
             setActiveCard(null);
         }, CARD_REVEAL_TRANSITION);
@@ -47,9 +68,9 @@ function App() {
 
 
     const cards = cardsData.map(cardData => {
-        const { key } = cardData;
+        const { key, revealed } = cardData;
         const isActive = key === activeCard;
-        const isRevealed = revealedCards?.includes(key) || isLeaderViewToggled;
+        const isRevealed = isLeaderViewToggled || revealed;
         return <GameCard
             key={key}
             handleCardClick={() => handleCardClick(key)}
@@ -69,14 +90,27 @@ function App() {
 
     return (
         <>
+            <DevTools />
             <div className={classNames('cards-container', { hasActiveCard, disabled: isCardsDisabled })}>
                 {cards}
             </div>
-            <StyledTurnIndicator className={`${turn.team}-${turn.role}`} activeTeamColor={TeamColor[turn.team]} remainingTime={remainingTime} />
-            <StyledActionsMenu>
-                {isLeader && <Toggle onToggle={toggleLeaderView} text={{ off: 'תראה לי רגע', on: 'בסדר תודה' }}></Toggle>}
-                {isPasswordFormEnabled && <PasswordForm></PasswordForm>}
-            </StyledActionsMenu>
+            <StyledTurnIndicator className={`${turn.team}-${turn.role}`} active_team_color={TeamColor[turn.team]} remaining_time={remainingTime} />
+            <ActionsMenu>
+                <Box sx={{ display: 'flex', gap: 1, position: 'absolute', left: 32 }}>
+                    {isLeader &&
+                        [
+                            <Toggle key='toogle' onToggle={toggleLeaderView} text={{ off: 'תראה תצבעים', on: 'תסתיר תצבעים' }} width='130px' height='40px'></Toggle>,
+                            <CodeForm key='card-form' width='130px' height='40px' disabled={!isUserTUrn} />
+                        ]
+                    }
+                </Box>
+                <Box >
+                    {code && <CodeLabel />}
+                </Box>
+                <Box sx={{ display: 'flex', gap: 1, position: 'absolute', right: 32 }}>
+                    <TeamPanel team={Team.Blue} />
+                </Box>
+            </ActionsMenu>
         </>
     );
 }
