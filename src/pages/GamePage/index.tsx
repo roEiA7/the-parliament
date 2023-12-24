@@ -96,7 +96,8 @@ function App() {
             </div>
             <StyledTurnIndicator className={`${turn.team}-${turn.role}`} active_team_color={TeamColor[turn.team]} remaining_time={remainingTime} />
             <ActionsMenu>
-                <Box sx={{ display: 'flex', gap: 1, position: 'absolute', left: 32 }}>
+                <Box sx={{ display: 'flex', position: 'absolute', left: 16, alignItems: 'center' }}>
+                    <TeamPanel team={Team.Red} />
                     {isLeader &&
                         [
                             <Toggle key='toogle' onToggle={toggleLeaderView} text={{ off: 'תראה תצבעים', on: 'תסתיר תצבעים' }} width='130px' height='40px'></Toggle>,

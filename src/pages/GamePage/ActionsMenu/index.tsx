@@ -19,7 +19,7 @@ const ActionsMenu = ({ children }: IActionsMenuProps) => {
             }}
             sx={{
                 position: 'fixed', bottom: 9, left: 0, right: 0, alignItems: 'center', justifyContent: 'center', paddingX: 4,
-                background: 'linear-gradient(to right, #FF4136, white 75%, white 75%, #0074d9)',
+                background: 'linear-gradient(to right, #f9857f, white 70%, white 70%, #73a8d6)',
             }}
         >
             {children}

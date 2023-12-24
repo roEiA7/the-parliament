@@ -1,3 +1,5 @@
+import { Fab } from '@mui/material';
+import UpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useGameContext } from "../../../context/GameStateProvider";
 import { Team } from "../../../enums/Team"
 import { TeamColor } from "../../../enums/TeamColor";
@@ -15,7 +17,10 @@ const TeamPanel = ({ team }: ITeamPanelProps) => {
     const revealedTeamCardsCount = teamCards.filter(card => card.revealed).length;
 
     return <StyledTeamPanelContainer>
-        <h1>{revealedTeamCardsCount} / {teamCardsCount}</h1>
+        {/* <Fab aria-label='Expand' >
+            <UpIcon />
+        </Fab> */}
+        <h2 style={{ color: 'white' }}>{teamCardsCount} / {revealedTeamCardsCount}</h2>
     </StyledTeamPanelContainer>
 }
 

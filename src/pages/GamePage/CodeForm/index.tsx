@@ -83,7 +83,7 @@ const CodeForm = ({ width, height, disabled }: ICodeFormParams) => {
                     </div>
                 </div>
             </div>
-            <Button variant="contained" onClick={toggleDisplayForm} disabled={disabled} sx={{ height, width }}>
+            <Button variant="text" onClick={toggleDisplayForm} disabled={disabled} sx={{ height, width }}>
                 תן קוד
             </Button>
         </StyledCodeFormContainer >
