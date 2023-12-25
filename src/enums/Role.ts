@@ -1,4 +1,4 @@
 export enum Role {
-    Leader = 'Leader',
-    Detective = 'Detective'
+  Leader = "Leader",
+  Detective = "Detective",
 }

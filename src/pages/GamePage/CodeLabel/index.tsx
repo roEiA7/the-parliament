@@ -1,13 +1,17 @@
-import { useGameContext } from "../../../context/GameStateProvider"
+import { useGameContext } from "../../../context/GameStateProvider";
 import { StyledCodeLabelContainer } from "./StyledCodeLabelContainer.styled";
 
 const CodeLabel = () => {
-    const { code } = useGameContext();
-    const { codeName, codeLength } = code || {};
+  const { code } = useGameContext();
+  const { codeName, codeLength } = code || {};
 
-    return <StyledCodeLabelContainer>
-        <span>{codeName} | {codeLength}</span>
+  return (
+    <StyledCodeLabelContainer>
+      <span>
+        {codeName} | {codeLength}
+      </span>
     </StyledCodeLabelContainer>
-}
+  );
+};
 
 export default CodeLabel;

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
 $white: #ffffff;
 $lightBG: #c7c7c7;
 $salmon: #ff6666;
@@ -11,57 +11,63 @@ $tealShade: #007c85;
 $darkGrey: #4f585e;
 
 body {
-    background: $lightBG;
-    color: $darkGrey;
-    text-rendering: optimizeLegibility;
-    background-size: 300% 300%;
-    background-image: linear-gradient(-45deg, #3d72b4 0%, #eef2f3 25%, #8e9eab 51%, #b7e3ee 100%);
-    -webkit-animation: AnimateBG 40s ease infinite;
-    animation: AnimateBG 40s ease infinite;
-    font-family: "Secular One", Tofu;
+  background: $lightBG;
+  color: $darkGrey;
+  text-rendering: optimizeLegibility;
+  background-size: 300% 300%;
+  background-image: linear-gradient(
+    -45deg,
+    #3d72b4 0%,
+    #eef2f3 25%,
+    #8e9eab 51%,
+    #b7e3ee 100%
+  );
+  -webkit-animation: AnimateBG 40s ease infinite;
+  animation: AnimateBG 40s ease infinite;
+  font-family: "Secular One", Tofu;
 }
 
 .cards-container {
-    margin: 80px auto;
-    max-width: 1300px;
-    text-align: center;
+  margin: 80px auto;
+  max-width: 1300px;
+  text-align: center;
 
-    &.disabled {
-        pointer-events: none;
-    }
+  &.disabled {
+    pointer-events: none;
+  }
 }
 
 .cards-container.hasActiveCard {
-    .card {
-        opacity: 0.6;
-        transform: scale(0.88);
-    }
+  .card {
+    opacity: 0.6;
+    transform: scale(0.88);
+  }
 }
 
 @-webkit-keyframes AnimateBG {
-    0% {
-        background-position: 0% 50%;
-    }
+  0% {
+    background-position: 0% 50%;
+  }
 
-    50% {
-        background-position: 100% 50%;
-    }
+  50% {
+    background-position: 100% 50%;
+  }
 
-    100% {
-        background-position: 0% 50%;
-    }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes AnimateBG {
-    0% {
-        background-position: 0% 50%;
-    }
+  0% {
+    background-position: 0% 50%;
+  }
 
-    50% {
-        background-position: 100% 50%;
-    }
+  50% {
+    background-position: 100% 50%;
+  }
 
-    100% {
-        background-position: 0% 50%;
-    }
+  100% {
+    background-position: 0% 50%;
+  }
 }

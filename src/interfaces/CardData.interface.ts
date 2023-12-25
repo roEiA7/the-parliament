@@ -1,8 +1,7 @@
-import { CardColorType } from './../enums/CardColor'
-    ;
+import { CardColorType } from "./../enums/CardColor";
 export interface ICardData {
-    key: number;
-    imgUrl: string;
-    color: CardColorType;
-    revealed: boolean;
+  key: number;
+  imgUrl: string;
+  color: CardColorType;
+  revealed: boolean;
 }
