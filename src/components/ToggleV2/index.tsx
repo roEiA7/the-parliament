@@ -1,18 +1,16 @@
-import { Button } from "@mui/material";
 import { useState } from "react";
-import { TeamColor } from "../../enums/TeamColor";
+import { Button, ButtonProps } from "@mui/material";
 
 interface IToggleProps {
   onToggle: () => void;
   text: { off: string; on: string };
   className?: string;
   width: string;
-  teamColor?: TeamColor;
+  color: ButtonProps["color"];
 }
 
-const ToggleV2 = ({ onToggle, text, width, teamColor }: IToggleProps) => {
+const ToggleV2 = ({ onToggle, text, width, color }: IToggleProps) => {
   const [isOn, setIsOn] = useState(false);
-  const color = teamColor === TeamColor.Blue ? "primary" : "error";
   const handleToggleClick = () => {
     setIsOn((prev) => !prev);
     onToggle();

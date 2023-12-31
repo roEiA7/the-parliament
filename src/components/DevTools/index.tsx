@@ -17,7 +17,8 @@ const RoleRadio = Object.values(Role).map((role) => (
 ));
 
 const DevTools = () => {
-  const { setUser, team: userTeam, role: userRole } = useAuthContext() || {};
+  const { setUser, user } = useAuthContext();
+  const { team: userTeam, role: userRole } = user || {};
 
   const onTeamChange = (event: ChangeEvent<HTMLInputElement>) => {
     const team = event.target.value as Team;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { CardColorType } from "../../../enums/CardColor";
 
-const cardHeight = "300px";
-const cardWidth = "300px";
+const cardHeight = "190px";
+const cardWidth = "190px";
 const cardBorderRadius = "6px";
 const cardBorderSize = "4px";
 const halfCardBorderSie = "2px";
@@ -158,7 +158,7 @@ export const StyledGameCard = styled.div<IStyledGameCardProps>`
 
     .card-image {
       &::before {
-        background: ${({ card_color }) => `${card_color}d1`};
+        background: ${({ card_color }) => `${card_color}a1`};
       }
 
       .card-actions {

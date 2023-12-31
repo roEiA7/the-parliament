@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const imgUrl = faker.image.url({ height: 300, width: 300 });
 
-export const cardsData: ICardData[] = Array(12)
+export const cardsData: ICardData[] = Array(16)
   .fill(null)
   .map((_, i) => ({
     key: faker.number.int(),

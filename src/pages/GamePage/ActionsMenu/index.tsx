@@ -9,9 +9,9 @@ interface IActionsMenuProps {
 
 const ActionsMenu = ({ children }: IActionsMenuProps) => {
   const [value, setValue] = useState(0);
-  const user = useAuthContext();
+  const { user } = useAuthContext();
   const background =
-    user.team === Team.Red
+    user?.team === Team.Red
       ? "linear-gradient(to right, #f9857f, white 70%, white 70%, #73a8d6)"
       : "linear-gradient(to right, #73a8d6, white 70%, white 70%, #f9857f)";
 
@@ -24,12 +24,13 @@ const ActionsMenu = ({ children }: IActionsMenuProps) => {
       }}
       sx={{
         position: "fixed",
-        bottom: 9,
+        bottom: 0,
         left: 0,
         right: 0,
         alignItems: "center",
         justifyContent: "center",
         paddingX: 4,
+        paddingY: 0.5,
         background,
       }}
     >

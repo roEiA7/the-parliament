@@ -1,8 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
 @import url("./styles/attention.scss");
 
+html {
+  height: 100%;
+  width: 100%;
+}
+
 body {
+  height: 100%;
+  width: 100%;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   direction: rtl;
+  font-family: "Secular One", Tofu;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }

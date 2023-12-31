@@ -2,6 +2,7 @@ import React, { MouseEventHandler } from "react";
 import classNames from "classnames";
 import { ICardData } from "../../../interfaces/CardData.interface";
 import { StyledGameCard } from "./StyledGameCard.styled";
+import "../../../styles/attention.scss";
 
 interface IGameCardProps {
   handleCardClick: () => void;
@@ -9,11 +10,19 @@ interface IGameCardProps {
   active: boolean;
   revealed: boolean;
   cardData: ICardData;
+  attention: boolean;
 }
 
 const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
   (
-    { handleCardClick, handleCardSelection, active, revealed, cardData },
+    {
+      handleCardClick,
+      handleCardSelection,
+      active,
+      revealed,
+      cardData,
+      attention,
+    },
     ref
   ) => {
     const { imgUrl, color } = cardData;
@@ -22,7 +31,11 @@ const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
       <StyledGameCard
         card_color={color}
         ref={ref}
-        className={classNames("card", { active, revealed, attention: active })}
+        className={classNames("card", {
+          active,
+          revealed,
+          attention,
+        })}
         onClick={handleCardClick}
       >
         <div className="card-image-holder">
@@ -41,21 +54,6 @@ const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
         </div>
       </StyledGameCard>
     );
-
-    // return <div
-    //     ref={ref}
-    //     className={classNames('card', { active, selected })}
-    //     onClick={handleCardClick} >
-
-    //     <div className="card__image-holder">
-    //         <div className="card__image" style={{ backgroundImage: `url(${imgUrl})` }}>
-
-    //             <div className='card-actions' style={{ backgroundImage: `url(${imgUrl})` }} onClick={handleCardSelection}>
-    //                 תלחיץ
-    //             </div>
-    //         </div>
-    //     </div>
-    // </div >
   }
 );
 

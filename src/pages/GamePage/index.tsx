@@ -1,4 +1,4 @@
-import React, { useState, useRef, MouseEvent } from "react";
+import { useState, useRef, MouseEvent } from "react";
 import classNames from "classnames";
 import { Box } from "@mui/material";
 import GameCard from "./GameCard";
@@ -9,9 +9,7 @@ import { StyledTurnIndicator } from "./StyledTurnIndicator.styled";
 import { TeamColor } from "../../enums/TeamColor";
 import { useTurnTimeManager } from "../../hooks/useTurnTimeManager";
 import { useGameContext } from "../../context/GameStateProvider";
-import { getRemainigTime } from "../../utils/time";
 import { useAuthContext } from "../../context/AuthProvider";
-import { Role } from "../../enums/Role";
 import CodeForm from "./CodeForm";
 import ActionsMenu from "./ActionsMenu";
 import ToggleV2 from "../../components/ToggleV2";
@@ -19,15 +17,20 @@ import "./GamePage.scss";
 import DevTools from "../../components/DevTools";
 import TeamPanel from "./TeamPanel";
 import { Team } from "../../enums/Team";
-import { toggleTeamTurn } from "../../helpers/turn";
+import { getUserTurnMetadata, toggleTeamTurn } from "../../helpers/turn";
+import { IUser } from "../../interfaces/user.interface";
+import bgTurnRed from "../../assets/bg-turn-red.png";
+import bgTurnBlue from "../../assets/bg-turn-blue.png";
+import { useRoomContext } from "../../context/RoomProvider";
+import { Role } from "../../enums/Role";
 
-function App() {
+const GamePage = () => {
   // useTurnTimeManager();
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [isLeaderViewToggled, setIsLeaderViewToggled] = useState(false);
   const activeCardRef = useRef(null);
   const hasActiveCard = activeCard !== null;
-  const user = useAuthContext();
+  const { user } = useAuthContext();
   const {
     turn,
     code,
@@ -36,14 +39,20 @@ function App() {
     increaseFoundCards,
     handleTurnOver,
   } = useGameContext();
-  const remainingTime = getRemainigTime(turn);
-  const isUserTUrn = turn.team === user?.team && turn.role === user.role;
-  const isLeader = user?.role === Role.Leader;
-  const isCardsDisabled = isLeader || !isUserTUrn;
-  const teamColor = user.team && TeamColor[user.team];
+  const { room } = useRoomContext();
 
-  const toggleLeaderView = () =>
+  const {
+    remainingTime,
+    isUserTUrn,
+    isLeader,
+    isCardsDisabled,
+    teamColor,
+    muiColor,
+  } = getUserTurnMetadata({ user: user as IUser, turn });
+
+  const toggleLeaderView = () => {
     setIsLeaderViewToggled((prevState) => !prevState);
+  };
   const handleCardClick = (cardKey: number) => {
     setActiveCard(cardKey);
   };
@@ -59,9 +68,7 @@ function App() {
     });
 
     const isUserTeamCard =
-      user.team &&
-      cardsData.find((card) => card.key === cardKey)?.color ===
-        TeamColor[user.team];
+      cardsData.find((card) => card.key === cardKey)?.color === teamColor;
     if (isUserTeamCard) {
       increaseFoundCards();
       if (code && code.codeLength === code.foundCards + 1) {
@@ -78,10 +85,14 @@ function App() {
   const handleOutsideClick = () => setActiveCard(null);
   useClickOutside(activeCardRef, handleOutsideClick);
 
+  const attentionCardKey =
+    !isCardsDisabled && cardsData.find((card) => !card.revealed)?.key;
   const cards = cardsData.map((cardData) => {
     const { key, revealed } = cardData;
     const isActive = key === activeCard;
     const isRevealed = isLeaderViewToggled || revealed;
+    const attention = key === attentionCardKey;
+
     return (
       <GameCard
         key={key}
@@ -94,13 +105,24 @@ function App() {
         active={isActive}
         cardData={cardData}
         ref={isActive ? activeCardRef : null}
+        attention={attention}
       />
     );
   });
 
   return (
     <>
-      <DevTools />
+      {/* <DevTools /> */}
+      <StyledTurnIndicator
+        className={`${turn.team}-${turn.role}`}
+        active_team_color={TeamColor[turn.team]}
+        remaining_time={remainingTime}
+        team={turn.team}
+      >
+        <div className="border-timer" />
+        <img className="turn-bg-blue" src={bgTurnBlue} />
+        <img className="turn-bg-red" src={bgTurnRed} />
+      </StyledTurnIndicator>
       <div
         className={classNames("cards-container", {
           hasActiveCard,
@@ -109,11 +131,7 @@ function App() {
       >
         {cards}
       </div>
-      <StyledTurnIndicator
-        className={`${turn.team}-${turn.role}`}
-        active_team_color={TeamColor[turn.team]}
-        remaining_time={remainingTime}
-      />
+
       <ActionsMenu>
         <Box
           sx={{
@@ -124,25 +142,39 @@ function App() {
             alignItems: "center",
           }}
         >
-          <TeamPanel team={user.team || Team.Red} />
+          <TeamPanel team={user?.team || Team.Red} />
           {isLeader && [
             <ToggleV2
               key="toogle"
               onToggle={toggleLeaderView}
               text={{ off: "תראה תצבעים", on: "תסתיר תצבעים" }}
               width="120px"
-              teamColor={teamColor}
+              color={muiColor}
             ></ToggleV2>,
-            <CodeForm key="card-form" disabled={!isUserTUrn} />,
+            <CodeForm
+              key="card-form"
+              disabled={!isUserTUrn}
+              color={muiColor}
+            />,
           ]}
         </Box>
-        <Box>{code && <CodeLabel />}</Box>
+        <Box>
+          {code ? (
+            <CodeLabel />
+          ) : (
+            `${
+              room?.users?.find(
+                (user) => user.role === Role.Leader && user.team === turn.team
+              )?.displayName || "מישהו"
+            } חושב על קוד..`
+          )}
+        </Box>
         <Box sx={{ display: "flex", gap: 1, position: "absolute", right: 24 }}>
-          <TeamPanel team={toggleTeamTurn(user.team || Team.Red)} />
+          <TeamPanel team={toggleTeamTurn(user?.team || Team.Red)} />
         </Box>
       </ActionsMenu>
     </>
   );
-}
+};
 
-export default App;
+export default GamePage;

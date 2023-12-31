@@ -12,6 +12,7 @@ import {
   TextField,
   FormGroup,
   FormControlLabel,
+  ButtonProps,
 } from "@mui/material";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { StyledCodeFormContainer } from "./StyledCodeFormContainer.styled";
@@ -21,9 +22,10 @@ import { useGameContext } from "../../../context/GameStateProvider";
 
 interface ICodeFormParams {
   disabled: boolean;
+  color: ButtonProps["color"];
 }
 
-const CodeForm = ({ disabled }: ICodeFormParams) => {
+const CodeForm = ({ disabled, color }: ICodeFormParams) => {
   const modalRef = useRef<HTMLFormElement>(null);
   const [shouldDispayForm, setShouldDispayForm] = useState<Boolean | undefined>(
     undefined
@@ -124,6 +126,8 @@ const CodeForm = ({ disabled }: ICodeFormParams) => {
         variant="outlined"
         onClick={toggleDisplayForm}
         disabled={disabled}
+        className={classNames({ attention: !disabled && !shouldDispayForm })}
+        color={color}
       >
         תן קוד
       </Button>
