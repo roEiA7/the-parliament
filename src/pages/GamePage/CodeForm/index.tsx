@@ -81,7 +81,7 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
             dir="rtl"
             onSubmit={handleFormSubmit}
           >
-            <FormGroup placeholder="test" sx={{ gap: 4 }}>
+            <FormGroup placeholder="test" sx={{ gap: { xs: 2, md: 4 } }}>
               <CodeAvatar codeLength={codeLength} />
               <FormControlLabel
                 control={

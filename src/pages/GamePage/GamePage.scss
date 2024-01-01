@@ -26,9 +26,14 @@ body {
 }
 
 .cards-container {
-  margin: 80px auto;
-  padding-bottom: 80px;
-  max-width: 1300px;
+  // height: calc(100% - 64px);
+  // display: grid;
+  // grid-template-columns: repeat(5, 1fr);
+  // grid-template-rows: repeat(5, 1fr);
+  margin: 5vh 3vw;
+  padding-bottom: 5vh;
+  width: 100%;
+  height: calc(100% - 64px - 5vh);
   text-align: center;
   overflow: auto;
 
@@ -42,6 +47,10 @@ body {
     opacity: 0.6;
     transform: scale(0.88);
   }
+}
+
+.cards-container::-webkit-scrollbar {
+  display: none;
 }
 
 @-webkit-keyframes AnimateBG {

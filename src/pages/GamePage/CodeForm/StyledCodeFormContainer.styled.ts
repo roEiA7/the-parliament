@@ -10,7 +10,6 @@ export const StyledCodeFormContainer = styled.div`
     left: 0;
     transform: scale(0);
     z-index: 5;
-    /* transform: scale(1); */
 
     &.hide {
       animation: quickScaleDown 0s 0.5s linear forwards;
@@ -46,6 +45,11 @@ export const StyledCodeFormContainer = styled.div`
         position: relative;
         opacity: 0;
         animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+
+        @media only screen and (max-width: 1000px) {
+          padding: 16px;
+          width: 30vw;
+        }
       }
     }
   }

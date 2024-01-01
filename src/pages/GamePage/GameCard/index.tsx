@@ -11,6 +11,7 @@ interface IGameCardProps {
   revealed: boolean;
   cardData: ICardData;
   attention: boolean;
+  disabled: boolean;
 }
 
 const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
@@ -22,6 +23,7 @@ const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
       revealed,
       cardData,
       attention,
+      disabled = true,
     },
     ref
   ) => {
@@ -37,6 +39,7 @@ const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
           attention,
         })}
         onClick={handleCardClick}
+        disabled={disabled}
       >
         <div className="card-image-holder">
           <div

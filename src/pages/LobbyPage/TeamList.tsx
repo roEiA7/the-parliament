@@ -118,11 +118,18 @@ const TeamList = ({ team }: ITeamListProps) => {
       <Divider />
       <List disablePadding sx={{ marginTop: "auto" }}>
         <ListItem disablePadding>
-          <ListItemButton onClick={handleJoinLeader} selected sx={{ gap: 1 }}>
+          <ListItemButton
+            onClick={handleJoinLeader}
+            selected
+            sx={{ gap: 1 }}
+            className="team-list-button"
+          >
             <SupportAgentIcon />
+
             <ListItemText primary="הצטרף כמנהיג" />
           </ListItemButton>
           <ListItemButton
+            className="team-list-button"
             onClick={handleJoinDetective}
             selected
             sx={{ gap: 1 }}

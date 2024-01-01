@@ -106,6 +106,7 @@ const GamePage = () => {
         cardData={cardData}
         ref={isActive ? activeCardRef : null}
         attention={attention}
+        disabled={isCardsDisabled}
       />
     );
   });
@@ -126,7 +127,6 @@ const GamePage = () => {
       <div
         className={classNames("cards-container", {
           hasActiveCard,
-          disabled: isCardsDisabled,
         })}
       >
         {cards}

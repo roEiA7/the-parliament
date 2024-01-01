@@ -51,4 +51,21 @@ export const StyledLobbyPageContainer = styled.div<IStyledLobbyPageContainerProp
   .team-list-container::-webkit-scrollbar {
     display: none;
   }
+
+  @media only screen and (max-width: 1000px) {
+    gap: 100px;
+
+    .team-list-container {
+      width: 30vw;
+      height: 80vh;
+      font-size: small;
+    }
+
+    .team-list-button {
+      padding: 4px;
+      span {
+        font-size: small;
+      }
+    }
+  }
 `;

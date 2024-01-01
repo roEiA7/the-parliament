@@ -14,6 +14,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   direction: rtl;
   font-family: "Secular One", Tofu;
+  display: flex;
 }
 
 body::-webkit-scrollbar {
@@ -23,4 +24,5 @@ body::-webkit-scrollbar {
 #root {
   height: 100%;
   width: 100%;
+  display: flex;
 }
