@@ -8,8 +8,8 @@ interface IStyledTurnIndicatorProps {
   team: Team;
 }
 
-const height = "100vh";
-const width = "100vw";
+const height = "100dvh";
+const width = "100dvw";
 const borderSize = "6px";
 
 export const StyledTurnIndicator = styled.div<IStyledTurnIndicatorProps>`
@@ -163,8 +163,8 @@ export const StyledTurnIndicator = styled.div<IStyledTurnIndicatorProps>`
 
   .turn-bg-blue,
   .turn-bg-red {
-    height: 100vh;
-    width: 100vw;
+    height: 10d0vh;
+    width: 100dvw;
     position: fixed;
     top: 0;
     z-index: -1;

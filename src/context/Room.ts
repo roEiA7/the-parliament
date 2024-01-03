@@ -3,7 +3,7 @@ import { IRoom } from "../interfaces/room.interface";
 
 export interface IRoomContext {
   room?: IRoom;
-  setRoom: React.Dispatch<React.SetStateAction<IRoom | undefined>>;
+  setRoom: React.Dispatch<React.SetStateAction<IRoom>>;
   isLoaded: boolean;
 }
 

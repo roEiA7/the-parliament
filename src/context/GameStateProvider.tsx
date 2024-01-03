@@ -1,28 +1,20 @@
-import { useContext, useState, ReactNode } from "react";
-import { GameContext, IGameContext } from "./Game";
-import { ICodeState, ITurnState } from "../interfaces/GameState.interface";
-import { cardsData as mockCardsData } from "../utils/mocks";
-import { Team } from "../enums/Team";
+import { useContext, ReactNode } from "react";
+import { GameContext, IGameContext, LoadedGameContext } from "./Game";
+import { ICodeState } from "../interfaces/GameState.interface";
 import { Role } from "../enums/Role";
 import { v4 as uuidv4 } from "uuid";
 import { DETECTIVE_TURN_PER_WORD, LEADER_TURN } from "../constants/turn";
-import { ICardData } from "../interfaces/CardData.interface";
 import { toggleTeamTurn } from "../helpers/turn";
+import { useTurn } from "../hooks/state/useTurn";
+import { useCode } from "../hooks/state/useCode";
 
-export const useGameContext = () => {
-  return useContext(GameContext);
-};
+export function useGameContext<TGameContext = LoadedGameContext>() {
+  return useContext(GameContext) as TGameContext;
+}
 
 export const GameStateProvider = ({ children }: { children: ReactNode }) => {
-  const [turn, setTurn] = useState<ITurnState>({
-    id: uuidv4(),
-    team: Team.Blue,
-    role: Role.Leader,
-    startTime: Date.now(),
-    duration: 5000, // 3 minutes in ms
-  });
-  const [code, setCode] = useState<ICodeState>();
-  const [cardsData, setCardsData] = useState<ICardData[]>(mockCardsData);
+  const [code, setCode, isCodeLoaded] = useCode();
+  const [turn, setTurn, isTurnLoaded] = useTurn();
 
   const handleCodeSubmit = (code: ICodeState) => {
     setCode(code);
@@ -50,13 +42,14 @@ export const GameStateProvider = ({ children }: { children: ReactNode }) => {
     }));
   };
 
+  const isGameStateLoaded = isCodeLoaded && isTurnLoaded;
+
   const gameStateValue: IGameContext = {
+    isLoaded: isGameStateLoaded,
     turn,
     code,
     setTurn,
     handleCodeSubmit,
-    cardsData,
-    setCardsData,
     increaseFoundCards,
     handleTurnOver,
   };

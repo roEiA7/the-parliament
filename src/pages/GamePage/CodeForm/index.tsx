@@ -4,6 +4,7 @@ import React, {
   MouseEvent,
   ChangeEvent,
   FormEvent,
+  useEffect,
 } from "react";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -27,14 +28,27 @@ interface ICodeFormParams {
 
 const CodeForm = ({ disabled, color }: ICodeFormParams) => {
   const modalRef = useRef<HTMLFormElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [shouldDispayForm, setShouldDispayForm] = useState<Boolean | undefined>(
     undefined
   );
   const [codeLength, setCodeLength] = useState(1);
   const [codeName, setCodeName] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(false);
   const isCodeInvalid = !Boolean(codeName);
   const { handleCodeSubmit } = useGameContext();
+
+  useEffect(() => {
+    if (disabled && shouldDispayForm) {
+      setShouldDispayForm(false);
+      inputRef.current?.blur();
+    }
+  }, [disabled, shouldDispayForm]);
+
+  useEffect(() => {
+    if (!disabled) {
+      setShouldDispayForm(true);
+    }
+  }, [disabled]);
 
   const toggleDisplayForm = () => {
     setShouldDispayForm((prevState) => !prevState);
@@ -81,7 +95,7 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
             dir="rtl"
             onSubmit={handleFormSubmit}
           >
-            <FormGroup placeholder="test" sx={{ gap: { xs: 2, md: 4 } }}>
+            <FormGroup placeholder="test" sx={{ gap: { xs: 1, md: 4 } }}>
               <CodeAvatar codeLength={codeLength} />
               <FormControlLabel
                 control={
@@ -94,6 +108,7 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
                     max={maxLength}
                     marks={marks}
                     onChange={onCodeLengthChange}
+                    size="small"
                   />
                 }
                 label="כמה מילים?"
@@ -105,15 +120,15 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
                 onChange={onCodeNameChange}
                 label="מה הקוד?"
                 variant="outlined"
+                inputRef={inputRef}
+                size="small"
               />
               <LoadingButton
                 size="small"
-                // onClick={handleSubmitClick}
-                loading={isLoading}
                 loadingPosition="center"
                 endIcon={<RocketLaunchIcon />}
                 variant="contained"
-                disabled={isCodeInvalid}
+                disabled={isCodeInvalid || disabled}
                 type="submit"
               >
                 <span>שא-גר</span>

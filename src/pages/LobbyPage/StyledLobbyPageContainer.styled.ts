@@ -12,8 +12,8 @@ export const StyledLobbyPageContainer = styled.div<IStyledLobbyPageContainerProp
   justify-content: space-around;
 
   .bg {
-    height: 100vh;
-    width: 100vw;
+    height: 100dvh;
+    width: 100dvw;
     background: url(${({ backgroundImage }) => backgroundImage});
     background-size: 100% 100%;
     opacity: 0.55;
@@ -24,12 +24,12 @@ export const StyledLobbyPageContainer = styled.div<IStyledLobbyPageContainerProp
 
   .vs-circle {
     position: absolute;
-    width: 8vw;
-    height: 8vw;
+    width: 8dvw;
+    height: 8dvw;
     background: #ffffff;
     border-radius: 50%;
     left: 0;
-    right: 3vw;
+    right: 3dvw;
     bottom: 0;
     top: 0;
     margin: auto;
@@ -37,7 +37,7 @@ export const StyledLobbyPageContainer = styled.div<IStyledLobbyPageContainerProp
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3.4vw;
+    font-size: 3.4dvw;
     color: #123456;
     border-width: 10px;
     border-style: solid;
@@ -56,8 +56,8 @@ export const StyledLobbyPageContainer = styled.div<IStyledLobbyPageContainerProp
     gap: 100px;
 
     .team-list-container {
-      width: 30vw;
-      height: 80vh;
+      width: 30dvw;
+      height: 80dvh;
       font-size: small;
     }
 

@@ -1,6 +1,5 @@
 import { Role } from "../enums/Role";
 import { Team } from "../enums/Team";
-import { ICardData } from "./CardData.interface";
 
 export interface ITurnState {
   id: string;
@@ -19,5 +18,4 @@ export interface ICodeState {
 export interface IGameState {
   turn: ITurnState;
   code?: ICodeState;
-  cardsData: ICardData[];
 }

@@ -13,8 +13,6 @@ import { useAuthContext } from "../../context/AuthProvider";
 import CodeForm from "./CodeForm";
 import ActionsMenu from "./ActionsMenu";
 import ToggleV2 from "../../components/ToggleV2";
-import "./GamePage.scss";
-import DevTools from "../../components/DevTools";
 import TeamPanel from "./TeamPanel";
 import { Team } from "../../enums/Team";
 import { getUserTurnMetadata, toggleTeamTurn } from "../../helpers/turn";
@@ -23,23 +21,21 @@ import bgTurnRed from "../../assets/bg-turn-red.png";
 import bgTurnBlue from "../../assets/bg-turn-blue.png";
 import { useRoomContext } from "../../context/RoomProvider";
 import { Role } from "../../enums/Role";
+import useInitUsersRoom from "../../hooks/state/useInitUsersRoom";
+import "./GamePage.scss";
+import DevTools from "../../components/DevTools";
 
 const GamePage = () => {
-  // useTurnTimeManager();
-  const [activeCard, setActiveCard] = useState<number | null>(null);
+  useTurnTimeManager();
+  useInitUsersRoom();
   const [isLeaderViewToggled, setIsLeaderViewToggled] = useState(false);
   const activeCardRef = useRef(null);
-  const hasActiveCard = activeCard !== null;
   const { user } = useAuthContext();
-  const {
-    turn,
-    code,
-    cardsData,
-    setCardsData,
-    increaseFoundCards,
-    handleTurnOver,
-  } = useGameContext();
-  const { room } = useRoomContext();
+  const { turn, code, increaseFoundCards, handleTurnOver } = useGameContext();
+  const { room, setRoom } = useRoomContext();
+  const cardsData = room?.cardsData || [];
+  const activeCard = room?.activeCard;
+  const hasActiveCard = activeCard !== null;
 
   const {
     remainingTime,
@@ -50,21 +46,30 @@ const GamePage = () => {
     muiColor,
   } = getUserTurnMetadata({ user: user as IUser, turn });
 
+  const setActiveCard = (activeCard: number | null) => {
+    setRoom((prev) => ({ ...prev, activeCard }));
+  };
   const toggleLeaderView = () => {
     setIsLeaderViewToggled((prevState) => !prevState);
   };
-  const handleCardClick = (cardKey: number) => {
+  const onCardClick = (cardKey: number) => {
     setActiveCard(cardKey);
   };
   const handleCardSelection = (cardKey: number) => {
-    setCardsData((prevData) => {
-      return prevData.map((card) => {
+    setRoom((prevRoom) => {
+      const prevCardsDatta = prevRoom.cardsData;
+      const newCardsData = prevCardsDatta.map((card) => {
         const isRevealedCard = card.key === cardKey;
         return {
           ...card,
           ...(isRevealedCard && { revealed: true }),
         };
       });
+
+      return {
+        ...prevRoom,
+        cardsData: newCardsData,
+      };
     });
 
     const isUserTeamCard =
@@ -82,7 +87,7 @@ const GamePage = () => {
       setActiveCard(null);
     }, CARD_REVEAL_TRANSITION);
   };
-  const handleOutsideClick = () => setActiveCard(null);
+  const handleOutsideClick = () => !isCardsDisabled && setActiveCard(null);
   useClickOutside(activeCardRef, handleOutsideClick);
 
   const attentionCardKey =
@@ -92,11 +97,15 @@ const GamePage = () => {
     const isActive = key === activeCard;
     const isRevealed = isLeaderViewToggled || revealed;
     const attention = key === attentionCardKey;
+    const handleCardClick = (event: MouseEvent) => {
+      event.stopPropagation();
+      onCardClick(key);
+    };
 
     return (
       <GameCard
         key={key}
-        handleCardClick={() => handleCardClick(key)}
+        handleCardClick={handleCardClick}
         handleCardSelection={(event: MouseEvent) => {
           handleCardSelection(key);
           event.stopPropagation();
@@ -166,7 +175,7 @@ const GamePage = () => {
               room?.users?.find(
                 (user) => user.role === Role.Leader && user.team === turn.team
               )?.displayName || "מישהו"
-            } חושב על קוד..`
+            }  על הקוד..`
           )}
         </Box>
         <Box sx={{ display: "flex", gap: 1, position: "absolute", right: 24 }}>

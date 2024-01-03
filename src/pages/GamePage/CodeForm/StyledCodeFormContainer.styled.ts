@@ -37,7 +37,7 @@ export const StyledCodeFormContainer = styled.div`
 
       .modal {
         background: white;
-        width: 35vw;
+        width: 25dvw;
         padding: 50px;
         display: inline-block;
         border-radius: 3px;
@@ -48,7 +48,6 @@ export const StyledCodeFormContainer = styled.div`
 
         @media only screen and (max-width: 1000px) {
           padding: 16px;
-          width: 30vw;
         }
       }
     }

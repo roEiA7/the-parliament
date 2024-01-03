@@ -1,16 +1,15 @@
-import { Fab } from "@mui/material";
-import UpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { useGameContext } from "../../../context/GameStateProvider";
 import { Team } from "../../../enums/Team";
 import { TeamColor } from "../../../enums/TeamColor";
 import { StyledTeamPanelContainer } from "./StyledTeamPanelContainer";
+import { useRoomContext } from "../../../context/RoomProvider";
 
 interface ITeamPanelProps {
   team: Team;
 }
 
 const TeamPanel = ({ team }: ITeamPanelProps) => {
-  const { cardsData } = useGameContext();
+  const { room } = useRoomContext();
+  const cardsData = room?.cardsData || [];
   const teamColor = TeamColor[team];
   const teamCards = cardsData.filter((card) => card.color === teamColor);
   const teamCardsCount = teamCards.length;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { CardColorType } from "../../../enums/CardColor";
 
-const cardHeight = "12vw";
-const cardWidth = "12vw";
+const cardHeight = "12dvw";
+const cardWidth = "12dvw";
 const cardBorderRadius = "6px";
 const cardBorderSize = "4px";
 const halfCardBorderSie = "2px";
@@ -19,7 +19,7 @@ export const StyledGameCard = styled.div<IStyledGameCardProps>`
   ${({ disabled }) => (disabled ? "pointer-events: none;" : "")}
   background: white;
   display: inline-block;
-  margin: 2vw;
+  margin: 2dvw;
   height: ${cardHeight};
   width: ${cardWidth};
   perspective: 1000px;
@@ -102,10 +102,14 @@ export const StyledGameCard = styled.div<IStyledGameCardProps>`
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
-        font-size: 82px;
+        font-size: 4rem;
         opacity: 0;
         transition: all 0.2s ease-out;
         pointer-events: none;
+
+        @media only screen and (max-width: 1000px) {
+          font-size: 2rem;
+        }
       }
     }
   }

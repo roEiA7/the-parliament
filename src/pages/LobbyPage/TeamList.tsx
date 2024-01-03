@@ -54,9 +54,7 @@ const TeamList = ({ team }: ITeamListProps) => {
   const handleJoinLeader = () => {
     const role = Role.Leader;
     const newUsers = users
-      .filter(
-        (user) => user.id !== currentUser?.id && user.role !== Role.Detective
-      )
+      .filter((user) => user.id !== currentUser?.id)
       .concat([{ ...currentUser, role, team }]);
     setRoom((prev) => ({ ...prev, users: newUsers }));
     setUser((prevUser) => ({ ...prevUser, team, role }));
@@ -75,7 +73,7 @@ const TeamList = ({ team }: ITeamListProps) => {
       className="team-list-container"
       sx={{
         width: "100%",
-        height: "60vh",
+        height: "60dvh",
         overflowY: "auto",
         maxWidth: 360,
         bgcolor: "rgba(16 18 27 / 40%)",
@@ -123,6 +121,7 @@ const TeamList = ({ team }: ITeamListProps) => {
             selected
             sx={{ gap: 1 }}
             className="team-list-button"
+            disabled={Boolean(leader)}
           >
             <SupportAgentIcon />
 

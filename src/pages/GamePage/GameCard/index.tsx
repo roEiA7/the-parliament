@@ -5,7 +5,7 @@ import { StyledGameCard } from "./StyledGameCard.styled";
 import "../../../styles/attention.scss";
 
 interface IGameCardProps {
-  handleCardClick: () => void;
+  handleCardClick: MouseEventHandler<HTMLDivElement>;
   handleCardSelection: MouseEventHandler<HTMLDivElement>;
   active: boolean;
   revealed: boolean;

@@ -7,11 +7,11 @@ const useStartGame = () => {
   const { room } = useRoomContext();
   const gameStarted = room?.gameStarted;
 
-  useEffect(() => {
-    if (gameStarted) {
-      navigate("/game");
-    }
-  }, [gameStarted, navigate]);
+  // useEffect(() => {
+  //   if (gameStarted) {
+  //     navigate("/game");
+  //   }
+  // }, [gameStarted, navigate]);
 };
 
 export default useStartGame;
