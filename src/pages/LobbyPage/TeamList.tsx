@@ -13,6 +13,8 @@ import { useRoomContext } from "../../context/RoomProvider";
 import { useAuthContext } from "../../context/AuthProvider";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import { useGameContext } from "../../context/GameStateProvider";
+import { getInitialTurn } from "../../constants/turn";
 
 interface ITeamListProps {
   team: Team;
@@ -26,6 +28,7 @@ const Titles = {
 const TeamList = ({ team }: ITeamListProps) => {
   const { user: currentUser, setUser } = useAuthContext();
   const { room, setRoom } = useRoomContext();
+  const { setTurn } = useGameContext();
   const users = room?.users || [];
   const isTeamReady = room?.teamsReady?.[team];
   const teamUsers = users.filter((user) => user.team === team);
@@ -42,6 +45,9 @@ const TeamList = ({ team }: ITeamListProps) => {
         [team]: !prev?.teamsReady?.[team],
       };
       const isGameReady = Object.values(newTeamsReady).every(Boolean);
+      if (isGameReady) {
+        setTurn(getInitialTurn());
+      }
 
       const newRoom = {
         ...prev,

@@ -1,7 +1,7 @@
 import { TeamColor } from "./TeamColor";
 
 enum WildColor {
-  Black = "#645d5c",
+  Black = "#0f0d0d",
   Netural = "#DCDCDC",
 }
 

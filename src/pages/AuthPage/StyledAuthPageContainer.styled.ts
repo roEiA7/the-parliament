@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 
-/* colors */
 const darkBlue = "#217093";
 const inputBG = "#f3fafd";
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { IRoom } from "../../interfaces/room.interface";
-import { mockRoom } from "../../utils/mocks";
+import { initializeRoom, mockRoom } from "../../utils/mocks";
 import { useDoc } from "./useDoc";
 
 export const useRoom = () => {
@@ -9,7 +9,8 @@ export const useRoom = () => {
 
   useEffect(() => {
     if (isLoaded && !room) {
-      setRoom(mockRoom);
+      const newRoom = initializeRoom();
+      setRoom(newRoom);
     }
   }, [isLoaded, room, setRoom]);
 

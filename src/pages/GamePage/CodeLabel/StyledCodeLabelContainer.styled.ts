@@ -9,7 +9,7 @@ export const StyledCodeLabelContainer = styled.div`
   font-weight: bold;
   letter-spacing: 3px;
   transform: translateY(-50dvh);
-  animation: scaleToPlace 3.5s cubic-bezier(0.45, 0.4, 0.2, 1) infinite;
+  animation: scaleToPlace 3.5s cubic-bezier(0.45, 0.4, 0.2, 1) forwards;
 
   @keyframes scaleToPlace {
     0% {

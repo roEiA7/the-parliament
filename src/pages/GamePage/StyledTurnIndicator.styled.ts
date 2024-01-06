@@ -163,10 +163,11 @@ export const StyledTurnIndicator = styled.div<IStyledTurnIndicatorProps>`
 
   .turn-bg-blue,
   .turn-bg-red {
-    height: 10d0vh;
+    height: 100dvh;
     width: 100dvw;
     position: fixed;
     top: 0;
+    left: 0;
     z-index: -1;
     opacity: 0;
     transition: all 0.3s ease-out;

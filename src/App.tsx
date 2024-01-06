@@ -11,6 +11,7 @@ import LobbyPage from "./pages/LobbyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import RotateGif from "./assets/screen-rotate.gif";
 import "./App.css";
+import GameOverPage from "./pages/GameOverPage";
 
 function App() {
   return (
@@ -49,6 +50,15 @@ function App() {
                       </ProtectedRoute>
                     }
                   />
+                  <Route
+                    path="/over"
+                    element={
+                      <ProtectedRoute path="/over">
+                        <GameOverPage />
+                      </ProtectedRoute>
+                    }
+                  />
+
                   <Route
                     path="*"
                     element={

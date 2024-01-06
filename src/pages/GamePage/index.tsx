@@ -22,8 +22,8 @@ import bgTurnBlue from "../../assets/bg-turn-blue.png";
 import { useRoomContext } from "../../context/RoomProvider";
 import { Role } from "../../enums/Role";
 import useInitUsersRoom from "../../hooks/state/useInitUsersRoom";
+import { isGameOver } from "../../helpers/cards";
 import "./GamePage.scss";
-import DevTools from "../../components/DevTools";
 
 const GamePage = () => {
   useTurnTimeManager();
@@ -47,7 +47,9 @@ const GamePage = () => {
   } = getUserTurnMetadata({ user: user as IUser, turn });
 
   const setActiveCard = (activeCard: number | null) => {
-    setRoom((prev) => ({ ...prev, activeCard }));
+    setRoom((prev) => {
+      return { ...prev, activeCard };
+    });
   };
   const toggleLeaderView = () => {
     setIsLeaderViewToggled((prevState) => !prevState);
@@ -60,20 +62,31 @@ const GamePage = () => {
       const prevCardsDatta = prevRoom.cardsData;
       const newCardsData = prevCardsDatta.map((card) => {
         const isRevealedCard = card.key === cardKey;
+
         return {
           ...card,
           ...(isRevealedCard && { revealed: true }),
         };
       });
 
-      return {
+      const newRoom = {
         ...prevRoom,
         cardsData: newCardsData,
       };
+
+      setTimeout(() => {
+        setRoom({
+          ...newRoom,
+          isGameOver: isGameOver(newCardsData),
+          activeCard: null,
+        });
+      }, CARD_REVEAL_TRANSITION);
+
+      return newRoom;
     });
 
-    const isUserTeamCard =
-      cardsData.find((card) => card.key === cardKey)?.color === teamColor;
+    const cardColor = cardsData.find((card) => card.key === cardKey)?.color;
+    const isUserTeamCard = cardColor === teamColor;
     if (isUserTeamCard) {
       increaseFoundCards();
       if (code && code.codeLength === code.foundCards + 1) {
@@ -82,10 +95,6 @@ const GamePage = () => {
     } else {
       handleTurnOver();
     }
-
-    setTimeout(() => {
-      setActiveCard(null);
-    }, CARD_REVEAL_TRANSITION);
   };
   const handleOutsideClick = () => !isCardsDisabled && setActiveCard(null);
   useClickOutside(activeCardRef, handleOutsideClick);
@@ -124,12 +133,11 @@ const GamePage = () => {
     <>
       {/* <DevTools /> */}
       <StyledTurnIndicator
-        className={`${turn.team}-${turn.role}`}
         active_team_color={TeamColor[turn.team]}
         remaining_time={remainingTime}
         team={turn.team}
       >
-        <div className="border-timer" />
+        <div className={`border-timer ${turn.team}-${turn.role}`} />
         <img className="turn-bg-blue" src={bgTurnBlue} />
         <img className="turn-bg-red" src={bgTurnRed} />
       </StyledTurnIndicator>
@@ -151,7 +159,7 @@ const GamePage = () => {
             alignItems: "center",
           }}
         >
-          <TeamPanel team={user?.team || Team.Red} />
+          <TeamPanel team={user?.team || Team.Blue} />
           {isLeader && [
             <ToggleV2
               key="toogle"
@@ -179,7 +187,7 @@ const GamePage = () => {
           )}
         </Box>
         <Box sx={{ display: "flex", gap: 1, position: "absolute", right: 24 }}>
-          <TeamPanel team={toggleTeamTurn(user?.team || Team.Red)} />
+          <TeamPanel team={toggleTeamTurn(user?.team || Team.Blue)} />
         </Box>
       </ActionsMenu>
     </>

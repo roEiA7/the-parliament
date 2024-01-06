@@ -4,6 +4,7 @@ import { IUser } from "./user.interface";
 
 export interface IRoom {
   gameStarted: boolean;
+  isGameOver: boolean;
   users: IUser[];
   teamsReady?: {
     [Team.Blue]?: boolean;
