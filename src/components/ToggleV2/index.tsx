@@ -22,6 +22,7 @@ const ToggleV2 = ({ onToggle, text, width, color }: IToggleProps) => {
       onClick={handleToggleClick}
       sx={{ width }}
       color={color}
+      size="small"
     >
       {isOn ? text.on : text.off}
     </Button>

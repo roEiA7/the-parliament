@@ -20,7 +20,7 @@ const TeamPanel = ({ team }: ITeamPanelProps) => {
 
   return (
     <StyledTeamPanelContainer>
-      <h1 style={{ color: "white" }}>{remainingCardsCount}</h1>
+      <h1 style={{ color: "white", margin: 0 }}>{remainingCardsCount}</h1>
     </StyledTeamPanelContainer>
   );
 };

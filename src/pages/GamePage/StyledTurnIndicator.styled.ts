@@ -48,20 +48,23 @@ export const StyledTurnIndicator = styled.div<IStyledTurnIndicatorProps>`
       0px calc(${height} - ${borderSize}), 0px 0px;
 
     &.Red-Leader {
-      animation: progressOne ${({ remaining_time }) => remaining_time}ms linear;
+      animation: progressOne ${({ remaining_time }) => remaining_time}ms linear
+        forwards;
     }
 
     &.Red-Detective {
-      animation: progressTwo ${({ remaining_time }) => remaining_time}ms linear;
+      animation: progressTwo ${({ remaining_time }) => remaining_time}ms linear
+        forwards;
     }
 
     &.Blue-Leader {
       animation: progressThree ${({ remaining_time }) => remaining_time}ms
-        linear;
+        linear forwards;
     }
 
     &.Blue-Detective {
-      animation: progressFour ${({ remaining_time }) => remaining_time}ms linear;
+      animation: progressFour ${({ remaining_time }) => remaining_time}ms linear
+        forwards;
     }
 
     @keyframes progressOne {
@@ -84,7 +87,7 @@ export const StyledTurnIndicator = styled.div<IStyledTurnIndicatorProps>`
       100% {
         background-position: -${width} 0px,
           calc(${width} - ${borderSize}) -${height},
-          ${width} calc(${height} - ${borderSize}), 0px ${width};
+          ${width} calc(${height} - ${borderSize}), 0px ${height};
       }
     }
 
@@ -108,7 +111,7 @@ export const StyledTurnIndicator = styled.div<IStyledTurnIndicatorProps>`
       100% {
         background-position: -${width} 0px,
           calc(${width} - ${borderSize}) -${height},
-          ${width} calc(${height} - ${borderSize}), 0px ${width};
+          ${width} calc(${height} - ${borderSize}), 0px ${height};
       }
     }
 
@@ -132,7 +135,7 @@ export const StyledTurnIndicator = styled.div<IStyledTurnIndicatorProps>`
       100% {
         background-position: -${width} 0px,
           calc(${width} - ${borderSize}) -${height},
-          ${width} calc(${height} - ${borderSize}), 0px ${width};
+          ${width} calc(${height} - ${borderSize}), 0px ${height};
       }
     }
 
@@ -156,7 +159,7 @@ export const StyledTurnIndicator = styled.div<IStyledTurnIndicatorProps>`
       100% {
         background-position: -${width} 0px,
           calc(${width} - ${borderSize}) -${height},
-          ${width} calc(${height} - ${borderSize}), 0px ${width};
+          ${width} calc(${height} - ${borderSize}), 0px ${height};
       }
     }
   }

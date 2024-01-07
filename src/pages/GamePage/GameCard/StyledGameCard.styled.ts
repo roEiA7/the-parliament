@@ -3,11 +3,11 @@ import { CardColorType } from "../../../enums/CardColor";
 
 const isLargeScreen = window.innerWidth >= 1000;
 
-const cardHeight = isLargeScreen ? "120px" : "12dvw";
-const cardWidth = isLargeScreen ? "120px" : "12dvw";
+const cardHeight = isLargeScreen ? "120px" : "11dvw";
+const cardWidth = isLargeScreen ? "120px" : "11dvw";
 const cardBorderRadius = "6px";
-const cardBorderSize = "4px";
-const halfCardBorderSie = "2px";
+const cardBorderSize = isLargeScreen ? "4px" : "2px";
+const halfCardBorderSie = isLargeScreen ? "2px" : "1px";
 
 const activeBackgroundImage =
   "linear-gradient(var(--rotate), #0074d9, #645d5c 43%, #FF4136)";
@@ -21,7 +21,7 @@ export const StyledGameCard = styled.div<IStyledGameCardProps>`
   ${({ disabled }) => (disabled ? "pointer-events: none;" : "")}
   background: white;
   display: inline-block;
-  margin: 1dvw;
+  margin: 2dvw;
   height: ${cardHeight};
   width: ${cardWidth};
   perspective: 1000px;
@@ -172,6 +172,14 @@ export const StyledGameCard = styled.div<IStyledGameCardProps>`
 
       .card-actions {
         opacity: 0 !important;
+      }
+    }
+  }
+
+  &&.revealed-bold {
+    .card-image {
+      &::before {
+        background: ${({ card_color }) => `${card_color}fa`};
       }
     }
   }

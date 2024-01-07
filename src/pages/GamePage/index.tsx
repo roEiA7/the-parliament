@@ -37,6 +37,8 @@ const GamePage = () => {
   const activeCard = room?.activeCard;
   const hasActiveCard = activeCard !== null;
 
+  console.log(user);
+
   const {
     remainingTime,
     isUserTUrn,
@@ -104,7 +106,7 @@ const GamePage = () => {
   const cards = cardsData.map((cardData) => {
     const { key, revealed } = cardData;
     const isActive = key === activeCard;
-    const isRevealed = isLeaderViewToggled || revealed;
+    // const isRevealed = isLeaderViewToggled || revealed;
     const attention = key === attentionCardKey;
     const handleCardClick = (event: MouseEvent) => {
       event.stopPropagation();
@@ -119,7 +121,8 @@ const GamePage = () => {
           handleCardSelection(key);
           event.stopPropagation();
         }}
-        revealed={isRevealed}
+        revealed={revealed}
+        isLeaderViewToggled={isLeaderViewToggled}
         active={isActive}
         cardData={cardData}
         ref={isActive ? activeCardRef : null}
@@ -153,27 +156,41 @@ const GamePage = () => {
         <Box
           sx={{
             display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
             gap: 1,
-            position: "absolute",
-            left: 24,
+            position: { sm: "absolute" },
+            left: { sm: 24 },
             alignItems: "center",
+            flex: { xs: "1 1 0", sm: "initial" },
+            height: { xs: "0", sm: "initial" },
           }}
         >
           <TeamPanel team={user?.team || Team.Blue} />
-          {isLeader && [
-            <ToggleV2
-              key="toogle"
-              onToggle={toggleLeaderView}
-              text={{ off: "תראה תצבעים", on: "תסתיר תצבעים" }}
-              width="120px"
-              color={muiColor}
-            ></ToggleV2>,
-            <CodeForm
-              key="card-form"
-              disabled={!isUserTUrn}
-              color={muiColor}
-            />,
-          ]}
+          {!isLeader && (
+            <Box
+              sx={{
+                display: "flex",
+                position: { xs: "absolute", sm: "initial" },
+                bottom: { xs: 15, sm: "initial" },
+                width: { xs: "92%", sm: "initial" },
+                justifyContent: "space-between",
+                gap: { sm: 1 },
+              }}
+            >
+              <ToggleV2
+                key="toogle"
+                onToggle={toggleLeaderView}
+                text={{ off: "תראה תצבעים", on: "תסתיר תצבעים" }}
+                width="100px"
+                color={muiColor}
+              ></ToggleV2>
+              <CodeForm
+                key="card-form"
+                disabled={!isUserTUrn}
+                color={muiColor}
+              />
+            </Box>
+          )}
         </Box>
         <Box>
           {code ? (
@@ -186,7 +203,17 @@ const GamePage = () => {
             }  על הקוד..`
           )}
         </Box>
-        <Box sx={{ display: "flex", gap: 1, position: "absolute", right: 24 }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 1,
+            position: { sm: "absolute" },
+            right: { sm: 24 },
+            flex: { xs: "1 1 0", sm: "inherit" },
+            height: { xs: "0", sm: "unset" },
+            alignItems: "end",
+          }}
+        >
           <TeamPanel team={toggleTeamTurn(user?.team || Team.Blue)} />
         </Box>
       </ActionsMenu>

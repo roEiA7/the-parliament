@@ -107,4 +107,9 @@ form {
     }
   }
 }
+
+  .portrait-container {
+    display: none;
+  }
+
 `;

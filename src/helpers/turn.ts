@@ -18,7 +18,7 @@ export const getUserTurnMetadata = ({
 }) => {
   const remainingTime = getRemainigTime(turn);
   const isUserTUrn = turn.team === user.team && turn.role === user.role;
-  const isGuestTurn = turn.role === Role.Leader && user.role === undefined; // todo: change
+  const isGuestTurn = turn.role === Role.Detective && user.role === undefined;
   const isLeader = user.role === Role.Leader;
   const isCardsDisabled = isLeader || !(isUserTUrn || isGuestTurn);
   const teamColor = user.team && TeamColor[user.team];

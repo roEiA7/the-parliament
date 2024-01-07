@@ -28,10 +28,15 @@ const ActionsMenu = ({ children }: IActionsMenuProps) => {
         left: 0,
         right: 0,
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: { xs: "space-around", sm: "center" },
+        flexDirection: { xs: "column", sm: "row" },
         paddingX: 4,
-        paddingY: 0.5,
-        background,
+        paddingY: { xs: 1, sm: 0.5 },
+        background: {
+          xs: "linear-gradient(to bottom, #73a8d6, white 60%, white 60%, #f9857f)",
+          sm: background,
+        },
+        height: { xs: 144, sm: 44, md: 56 },
       }}
     >
       {children}

@@ -9,6 +9,7 @@ interface IGameCardProps {
   handleCardSelection: MouseEventHandler<HTMLDivElement>;
   active: boolean;
   revealed: boolean;
+  isLeaderViewToggled: boolean;
   cardData: ICardData;
   attention: boolean;
   disabled: boolean;
@@ -21,6 +22,7 @@ const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
       handleCardSelection,
       active,
       revealed,
+      isLeaderViewToggled,
       cardData,
       attention,
       disabled = true,
@@ -35,7 +37,8 @@ const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
         ref={ref}
         className={classNames("card", {
           active,
-          revealed,
+          revealed: revealed || isLeaderViewToggled,
+          "revealed-bold": revealed && isLeaderViewToggled,
           attention,
         })}
         onClick={handleCardClick}

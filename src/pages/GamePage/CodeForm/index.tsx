@@ -143,6 +143,8 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
         disabled={disabled}
         className={classNames({ attention: !disabled && !shouldDispayForm })}
         color={color}
+        size="small"
+        sx={{ width: "100px" }}
       >
         תן קוד
       </Button>
