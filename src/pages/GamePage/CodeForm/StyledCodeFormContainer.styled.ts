@@ -49,6 +49,10 @@ export const StyledCodeFormContainer = styled.div`
         @media only screen and (max-width: 1000px) {
           padding: 16px;
         }
+
+        @media only screen and (max-width: 600px) {
+          width: 70dvw;
+        }
       }
     }
   }

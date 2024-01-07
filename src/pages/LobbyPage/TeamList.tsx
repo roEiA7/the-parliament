@@ -96,7 +96,7 @@ const TeamList = ({ team }: ITeamListProps) => {
       >
         {leader && (
           <>
-            <ListSubheader>
+            <ListSubheader sx={{ lineHeight: { xs: "32px", sm: "48px" } }}>
               <SupportAgentIcon
                 sx={{ verticalAlign: "middle", marginRight: 0.5 }}
               />
@@ -107,7 +107,7 @@ const TeamList = ({ team }: ITeamListProps) => {
         )}
         {detectives.length > 0 && (
           <>
-            <ListSubheader>
+            <ListSubheader sx={{ lineHeight: { xs: "32px", sm: "48px" } }}>
               <PersonSearchIcon
                 sx={{ verticalAlign: "middle", marginRight: 0.5 }}
               />

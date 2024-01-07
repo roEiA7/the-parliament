@@ -23,7 +23,7 @@ export const getUserTurnMetadata = ({
   const isCardsDisabled = isLeader || !(isUserTUrn || isGuestTurn);
   const teamColor = user.team && TeamColor[user.team];
   const muiColor: ButtonProps["color"] =
-    teamColor === TeamColor.Blue ? "primary" : "error";
+    teamColor === TeamColor.Red ? "error" : "primary";
 
   return {
     remainingTime,

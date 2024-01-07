@@ -157,16 +157,17 @@ const GamePage = () => {
           sx={{
             display: "flex",
             flexDirection: { xs: "column", sm: "row" },
-            gap: 1,
+            gap: 2,
             position: { sm: "absolute" },
             left: { sm: 24 },
             alignItems: "center",
+            justifyContent: "end",
             flex: { xs: "1 1 0", sm: "initial" },
             height: { xs: "0", sm: "initial" },
           }}
         >
           <TeamPanel team={user?.team || Team.Blue} />
-          {!isLeader && (
+          {isLeader && (
             <Box
               sx={{
                 display: "flex",
@@ -211,7 +212,7 @@ const GamePage = () => {
             right: { sm: 24 },
             flex: { xs: "1 1 0", sm: "inherit" },
             height: { xs: "0", sm: "unset" },
-            alignItems: "end",
+            alignItems: "start",
           }}
         >
           <TeamPanel team={toggleTeamTurn(user?.team || Team.Blue)} />

@@ -68,4 +68,14 @@ export const StyledLobbyPageContainer = styled.div<IStyledLobbyPageContainerProp
       }
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    gap: 70px;
+
+    .team-list-container {
+      width: 80dvw;
+      transform: scale(0.95);
+    }
+  }
 `;
