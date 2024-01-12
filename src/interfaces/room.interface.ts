@@ -11,5 +11,5 @@ export interface IRoom {
     [Team.Red]?: boolean;
   };
   cardsData: ICardData[];
-  activeCard: number | null;
+  activeCard: string | null;
 }

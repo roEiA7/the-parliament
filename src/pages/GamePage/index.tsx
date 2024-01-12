@@ -37,8 +37,6 @@ const GamePage = () => {
   const activeCard = room?.activeCard;
   const hasActiveCard = activeCard !== null;
 
-  console.log(user);
-
   const {
     remainingTime,
     isUserTUrn,
@@ -48,7 +46,7 @@ const GamePage = () => {
     muiColor,
   } = getUserTurnMetadata({ user: user as IUser, turn });
 
-  const setActiveCard = (activeCard: number | null) => {
+  const setActiveCard = (activeCard: string | null) => {
     setRoom((prev) => {
       return { ...prev, activeCard };
     });
@@ -56,10 +54,10 @@ const GamePage = () => {
   const toggleLeaderView = () => {
     setIsLeaderViewToggled((prevState) => !prevState);
   };
-  const onCardClick = (cardKey: number) => {
+  const onCardClick = (cardKey: string) => {
     setActiveCard(cardKey);
   };
-  const handleCardSelection = (cardKey: number) => {
+  const handleCardSelection = (cardKey: string) => {
     setRoom((prevRoom) => {
       const prevCardsDatta = prevRoom.cardsData;
       const newCardsData = prevCardsDatta.map((card) => {
@@ -106,7 +104,6 @@ const GamePage = () => {
   const cards = cardsData.map((cardData) => {
     const { key, revealed } = cardData;
     const isActive = key === activeCard;
-    // const isRevealed = isLeaderViewToggled || revealed;
     const attention = key === attentionCardKey;
     const handleCardClick = (event: MouseEvent) => {
       event.stopPropagation();

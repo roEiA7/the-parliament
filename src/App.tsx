@@ -9,7 +9,6 @@ import AuthPage from "./pages/AuthPage";
 import { RoomProvider } from "./context/RoomProvider";
 import LobbyPage from "./pages/LobbyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import RotateGif from "./assets/screen-rotate.gif";
 import "./App.css";
 import GameOverPage from "./pages/GameOverPage";
 
@@ -20,10 +19,6 @@ function App() {
         <AuthProvider>
           <RoomProvider>
             <GameStateProvider>
-              <div className="portrait-container">
-                <img height={200} src={RotateGif} />
-                סבב תמסך
-              </div>
               <Router>
                 <Routes>
                   <Route

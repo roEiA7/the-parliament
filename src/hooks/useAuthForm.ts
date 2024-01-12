@@ -1,8 +1,7 @@
 // @ts-nocheck
 
 import { useEffect, useState, ChangeEvent } from "react";
-import { gsap, TweenMax, Quad, Expo, Power2 } from "gsap-trial";
-import { MorphSVGPlugin } from "gsap-trial/MorphSVGPlugin";
+import { TweenMax, Quad, Expo, Power2 } from "gsap";
 
 const useAuthForm = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +16,6 @@ const useAuthForm = () => {
   };
 
   useEffect(() => {
-    gsap.registerPlugin(MorphSVGPlugin);
     var emailLabel = document.querySelector("#loginEmail-label"),
       email = document.querySelector("#loginEmail"),
       password = document.querySelector("#loginPassword"),

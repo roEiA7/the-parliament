@@ -29,10 +29,12 @@ const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
     },
     ref
   ) => {
-    const { imgUrl, color } = cardData;
+    const { img, color } = cardData;
+    const imgUrl = `url('/card_images/${img}.jpeg')`;
 
     return (
       <StyledGameCard
+        id={img}
         card_color={color}
         ref={ref}
         className={classNames("card", {
@@ -45,13 +47,10 @@ const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
         disabled={disabled}
       >
         <div className="card-image-holder">
-          <div
-            className="card-image"
-            style={{ backgroundImage: `url(${imgUrl})` }}
-          >
+          <div className="card-image" style={{ backgroundImage: imgUrl }}>
             <div
               className="card-actions"
-              style={{ backgroundImage: `url(${imgUrl})` }}
+              style={{ backgroundImage: imgUrl }}
               onClick={handleCardSelection}
             >
               תלחיץ

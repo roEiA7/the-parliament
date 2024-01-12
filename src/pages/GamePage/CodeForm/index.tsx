@@ -36,6 +36,7 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
   const [codeName, setCodeName] = useState<string>("");
   const isCodeInvalid = !Boolean(codeName);
   const { handleCodeSubmit } = useGameContext();
+  const isCodeError = codeName.split(" ").length > 1;
 
   useEffect(() => {
     if (disabled && shouldDispayForm) {
@@ -117,11 +118,13 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
 
               <TextField
                 value={codeName}
+                error={isCodeError}
                 onChange={onCodeNameChange}
                 label="מה הקוד?"
                 variant="outlined"
                 inputRef={inputRef}
                 size="small"
+                helperText={isCodeError ? "מילה אחת אמציה" : null}
               />
               <LoadingButton
                 size="small"

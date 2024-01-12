@@ -20,7 +20,7 @@ export const StyledCodeLabelContainer = styled.div`
   white-space: nowrap;
   text-shadow: 3px 1px 2px black;
   transform: translateY(-50dvh);
-  animation: scaleToPlace 3.5s cubic-bezier(0.45, 0.4, 0.2, 1) infinite;
+  animation: scaleToPlace 3.5s cubic-bezier(0.45, 0.4, 0.2, 1) forwards;
 
   @keyframes scaleToPlace {
     0% {

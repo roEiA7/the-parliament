@@ -36,25 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-.portrait-container {
-  display: grid;
-  place-items: center;
-  place-content: center;
-  gap: 32px;
-  height: 100dvh;
-  width: 100dvw;
-  background: linear-gradient(to bottom, #890700, #002050);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999999999;
-  font-size: 3rem;
-  color: white;
-  display: none;
-}
-@media screen and (orientation: landscape) {
-  .portrait-container {
-    display: none;
-  }
-}
