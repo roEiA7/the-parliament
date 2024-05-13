@@ -30,7 +30,7 @@ const GameCard = React.forwardRef<HTMLDivElement | null, IGameCardProps>(
     ref
   ) => {
     const { img, color } = cardData;
-    const imgUrl = `url('/card_images/${img}.jpeg')`;
+    const imgUrl = `url('/card_images/${img.toLocaleLowerCase()}.jpeg')`;
 
     return (
       <StyledGameCard

@@ -13,11 +13,11 @@ export type UnloadedGameContext = {
 export type LoadedGameContext = {
   isLoaded: true;
 } & IGameState & {
-    setTurn: React.Dispatch<React.SetStateAction<ITurnState>>;
-    handleCodeSubmit: (code: ICodeState) => void;
-    increaseFoundCards: () => void;
-    handleTurnOver: () => void;
-  };
+  setTurn: React.Dispatch<React.SetStateAction<ITurnState>>;
+  handleCodeSubmit: (code: ICodeState) => void;
+  increaseFoundCards: () => void;
+  handleTurnOver: () => void;
+};
 
 export type IGameContext = UnloadedGameContext | LoadedGameContext;
 

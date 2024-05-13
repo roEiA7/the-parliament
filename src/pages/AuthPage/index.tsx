@@ -11,6 +11,7 @@ import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { FIREBASE_INVALID_LOGIN_CREDENTIALS } from "../../constants/errors";
 import { StyledAuthGlobal } from "./StyledAuthPageContainer.styled";
+import { codeEmail } from "../../utils/email";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const AuthPage = () => {
 
   const handleAuthSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const mockEmail = `${email}@walla.com`;
+    const mockEmail = codeEmail(email);
     signInWithEmailAndPassword(auth, mockEmail, password)
       .then((userCredential) => {
         // Signed in
@@ -36,8 +37,9 @@ const AuthPage = () => {
       });
   };
 
+
   const regiesterNewUser = async () => {
-    const mockEmail = `${email}@walla.com`;
+    const mockEmail = `${email.replace(/ /g, '*')}@walla.com`;
 
     createUserWithEmailAndPassword(auth, mockEmail, password)
       .then((userCredential) => {

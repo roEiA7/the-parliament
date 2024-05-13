@@ -17,11 +17,12 @@ export const getUserTurnMetadata = ({
   user: IUser;
 }) => {
   const remainingTime = getRemainigTime(turn);
+  const isGuest = user.role === undefined
+  const isGuestTurn = turn.role === Role.Detective && isGuest;
   const isUserTUrn = turn.team === user.team && turn.role === user.role;
-  const isGuestTurn = turn.role === Role.Detective && user.role === undefined;
   const isLeader = user.role === Role.Leader;
   const isCardsDisabled = isLeader || !(isUserTUrn || isGuestTurn);
-  const teamColor = user.team && TeamColor[user.team];
+  const teamColor = isGuest ? TeamColor[turn.team] : user.team && TeamColor[user.team];
   const muiColor: ButtonProps["color"] =
     teamColor === TeamColor.Red ? "error" : "primary";
 

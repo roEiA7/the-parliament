@@ -29,7 +29,7 @@ export const mockRoom: IRoom = {
   gameStarted: false,
   cardsData: [],
   activeCard: null,
-  isGameOver: false,
+  winningTeam: null,
 };
 
 export const initializeRoom = () => {

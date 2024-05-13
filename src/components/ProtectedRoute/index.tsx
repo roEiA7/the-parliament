@@ -20,9 +20,9 @@ const ProtectedRoute = ({ children, path }: IProtectedRouteProps) => {
     }
 
     if (room?.gameStarted) {
-      if (room.isGameOver) {
-        return "/over";
-      }
+      // if (room.isGameOver) {
+      //   return "/over";
+      // }
       return "/game";
     }
 

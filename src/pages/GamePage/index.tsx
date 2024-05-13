@@ -22,8 +22,12 @@ import bgTurnBlue from "../../assets/bg-turn-blue.png";
 import { useRoomContext } from "../../context/RoomProvider";
 import { Role } from "../../enums/Role";
 import useInitUsersRoom from "../../hooks/state/useInitUsersRoom";
-import { isGameOver } from "../../helpers/cards";
+import { getWinningTeam } from "../../helpers/cards";
 import "./GamePage.scss";
+import GameOverPage from "../GameOverPage";
+import CannonSound from "../../assets/sounds/cannon.mp3";
+import LooserSound from "../../assets/sounds/looser.mp3";
+import useSoundManager from "../../hooks/useSoundManager";
 
 const GamePage = () => {
   useTurnTimeManager();
@@ -33,8 +37,11 @@ const GamePage = () => {
   const { user } = useAuthContext();
   const { turn, code, increaseFoundCards, handleTurnOver } = useGameContext();
   const { room, setRoom } = useRoomContext();
+  const [playLooser] = useSoundManager(LooserSound);
+  const [playCannon] = useSoundManager(CannonSound);
   const cardsData = room?.cardsData || [];
   const activeCard = room?.activeCard;
+  const isGameOver = !!room?.winningTeam;
   const hasActiveCard = activeCard !== null;
 
   const {
@@ -45,6 +52,12 @@ const GamePage = () => {
     teamColor,
     muiColor,
   } = getUserTurnMetadata({ user: user as IUser, turn });
+  const turnLeader = room?.users?.find(
+    (user) => user.role === Role.Leader && user.team === turn.team
+  )?.displayName;
+  const winningLeader = room?.users?.find(
+    (user) => user.role === Role.Leader && user.team === room.winningTeam
+  )?.displayName
 
   const setActiveCard = (activeCard: string | null) => {
     setRoom((prev) => {
@@ -62,6 +75,13 @@ const GamePage = () => {
       const prevCardsDatta = prevRoom.cardsData;
       const newCardsData = prevCardsDatta.map((card) => {
         const isRevealedCard = card.key === cardKey;
+        if (isRevealedCard) {
+          if (card.color === teamColor) {
+            playCannon();
+          } else {
+            playLooser();
+          }
+        }
 
         return {
           ...card,
@@ -77,7 +97,7 @@ const GamePage = () => {
       setTimeout(() => {
         setRoom({
           ...newRoom,
-          isGameOver: isGameOver(newCardsData),
+          winningTeam: getWinningTeam(newCardsData, turn.team),
           activeCard: null,
         });
       }, CARD_REVEAL_TRANSITION);
@@ -131,8 +151,8 @@ const GamePage = () => {
 
   return (
     <>
-      {/* <DevTools /> */}
-      <StyledTurnIndicator
+      {isGameOver && <GameOverPage />}
+      {!isGameOver && <StyledTurnIndicator
         active_team_color={TeamColor[turn.team]}
         remaining_time={remainingTime}
         team={turn.team}
@@ -140,7 +160,7 @@ const GamePage = () => {
         <div className={`border-timer ${turn.team}-${turn.role}`} />
         <img className="turn-bg-blue" src={bgTurnBlue} />
         <img className="turn-bg-red" src={bgTurnRed} />
-      </StyledTurnIndicator>
+      </StyledTurnIndicator>}
       <div
         className={classNames("cards-container", {
           hasActiveCard,
@@ -149,7 +169,7 @@ const GamePage = () => {
         {cards}
       </div>
 
-      <ActionsMenu>
+      <ActionsMenu isGameOver={isGameOver}>
         <Box
           sx={{
             display: "flex",
@@ -164,7 +184,7 @@ const GamePage = () => {
           }}
         >
           <TeamPanel team={user?.team || Team.Blue} />
-          {isLeader && (
+          {isLeader && !isGameOver && (
             <Box
               sx={{
                 display: "flex",
@@ -191,15 +211,16 @@ const GamePage = () => {
           )}
         </Box>
         <Box>
-          {code ? (
-            <CodeLabel />
-          ) : (
-            `${
-              room?.users?.find(
-                (user) => user.role === Role.Leader && user.team === turn.team
-              )?.displayName || "מישהו"
-            }  על הקוד..`
-          )}
+          {
+            isGameOver ? `הקבוצה של ${winningLeader} ניצחה` :
+              code ? (
+                <CodeLabel />
+              ) : (
+                `${turnLeader || "מישהו"
+                }  על הקוד..`
+              )
+          }
+
         </Box>
         <Box
           sx={{

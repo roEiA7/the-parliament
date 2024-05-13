@@ -15,6 +15,8 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { useGameContext } from "../../context/GameStateProvider";
 import { getInitialTurn } from "../../constants/turn";
+import useSoundManager from "../../hooks/useSoundManager";
+import StartSound from "../../assets/sounds/start.mp3";
 
 interface ITeamListProps {
   team: Team;
@@ -29,6 +31,7 @@ const TeamList = ({ team }: ITeamListProps) => {
   const { user: currentUser, setUser } = useAuthContext();
   const { room, setRoom } = useRoomContext();
   const { setTurn } = useGameContext();
+  const [play] = useSoundManager(StartSound);
   const users = room?.users || [];
   const isTeamReady = room?.teamsReady?.[team];
   const teamUsers = users.filter((user) => user.team === team);
@@ -46,7 +49,8 @@ const TeamList = ({ team }: ITeamListProps) => {
       };
       const isGameReady = Object.values(newTeamsReady).every(Boolean);
       if (isGameReady) {
-        setTurn(getInitialTurn());
+        play();
+        setTurn(getInitialTurn(room?.cardsData));
       }
 
       const newRoom = {

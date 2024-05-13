@@ -11,8 +11,11 @@ import LobbyPage from "./pages/LobbyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 import GameOverPage from "./pages/GameOverPage";
+import useSound from "use-sound";
 
 function App() {
+
+
   return (
     <RTL>
       <ThemeProvider theme={Theme}>

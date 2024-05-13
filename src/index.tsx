@@ -12,8 +12,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <ComingSoonPage />
-    {/* <App /> */}
+    {/* <ComingSoonPage /> */}
+    <App />
   </React.StrictMode>
 );
 

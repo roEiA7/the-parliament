@@ -1,3 +1,3 @@
 // Transitions in ms
 
-export const CARD_REVEAL_TRANSITION = 1500;
+export const CARD_REVEAL_TRANSITION = 2000;

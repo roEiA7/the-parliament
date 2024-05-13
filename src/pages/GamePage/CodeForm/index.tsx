@@ -20,6 +20,9 @@ import { StyledCodeFormContainer } from "./StyledCodeFormContainer.styled";
 import classNames from "classnames";
 import CodeAvatar from "./CodeAvatar";
 import { useGameContext } from "../../../context/GameStateProvider";
+import { useRoomContext } from "../../../context/RoomProvider";
+import { TeamColor } from "../../../enums/TeamColor";
+import { CardColor } from "../../../enums/CardColor";
 
 interface ICodeFormParams {
   disabled: boolean;
@@ -35,7 +38,7 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
   const [codeLength, setCodeLength] = useState(1);
   const [codeName, setCodeName] = useState<string>("");
   const isCodeInvalid = !Boolean(codeName);
-  const { handleCodeSubmit } = useGameContext();
+  const { handleCodeSubmit, turn } = useGameContext();
   const isCodeError = codeName.split(" ").length > 1;
 
   useEffect(() => {
@@ -61,7 +64,12 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
     }
   };
 
-  const maxLength = 9; // todo: get from state
+
+  const { room } = useRoomContext();
+  const cardsData = room?.cardsData || [];
+  const teamColor = TeamColor[turn.team];
+  const maxLength = cardsData.filter((card) =>
+    card.color === teamColor && !card.revealed).length;
   const marks = Array.from(Array(maxLength).keys()).map((i) => ({
     value: i + 1,
     label: i + 1,
@@ -78,6 +86,7 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
     event.preventDefault();
     handleCodeSubmit({ codeName, codeLength, foundCards: 0 });
     toggleDisplayForm();
+    setCodeName("");
   };
 
   return (
@@ -96,7 +105,7 @@ const CodeForm = ({ disabled, color }: ICodeFormParams) => {
             dir="rtl"
             onSubmit={handleFormSubmit}
           >
-            <FormGroup placeholder="test" sx={{ gap: { xs: 1, md: 4 } }}>
+            <FormGroup sx={{ gap: { xs: 1, md: 4 } }}>
               <CodeAvatar codeLength={codeLength} />
               <FormControlLabel
                 control={

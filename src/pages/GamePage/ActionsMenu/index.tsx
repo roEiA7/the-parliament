@@ -5,17 +5,16 @@ import { Team } from "../../../enums/Team";
 
 interface IActionsMenuProps {
   children: ReactNode;
+  isGameOver: boolean;
 }
 
-const ActionsMenu = ({ children }: IActionsMenuProps) => {
+const ActionsMenu = ({ children, isGameOver }: IActionsMenuProps) => {
   const [value, setValue] = useState(0);
   const { user } = useAuthContext();
-  const background = `linear-gradient(to ${
-    user?.team === Team.Red ? "right" : "left"
-  }, #f9857f, white 70%, white 70%, #73a8d6)`;
-  const xsBackground = `linear-gradient(to ${
-    user?.team === Team.Red ? "bottom" : "top"
-  }, #73a8d6, white 55%, white 55%, #f9857f)`;
+  const background = `linear-gradient(to ${user?.team === Team.Red ? "right" : "left"
+    }, #f9857f, white 70%, white 70%, #73a8d6)`;
+  const xsBackground = `linear-gradient(to ${user?.team === Team.Red ? "bottom" : "top"
+    }, #73a8d6, white 55%, white 55%, #f9857f)`;
 
   return (
     <BottomNavigation
@@ -39,10 +38,11 @@ const ActionsMenu = ({ children }: IActionsMenuProps) => {
           sm: background,
         },
         height: { xs: 144, sm: 44, md: 56 },
+        ...(isGameOver && { pointerEvents: 'none' })
       }}
     >
       {children}
-    </BottomNavigation>
+    </BottomNavigation >
   );
 };
 

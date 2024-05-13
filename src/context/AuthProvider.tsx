@@ -3,6 +3,7 @@ import { AuthContext, IAuthContext } from "./Auth";
 import { IUser } from "../interfaces/user.interface";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
+import { decodeEmail } from "../utils/email";
 
 export const useAuthContext = () => {
   return useContext(AuthContext);
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
         const { email, uid: id } = authUser;
-        const displayName = email?.replace("@walla.com", "");
+        const displayName = decodeEmail(email);
         setUser({ displayName, id });
       } else {
         setUser(undefined);

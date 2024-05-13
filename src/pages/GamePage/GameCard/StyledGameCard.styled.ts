@@ -111,7 +111,7 @@ export const StyledGameCard = styled.div<IStyledGameCardProps>`
         pointer-events: none;
 
         @media only screen and (max-width: 1000px) {
-          font-size: 2rem;
+          font-size: 0.8rem;
         }
       }
     }
@@ -158,7 +158,7 @@ export const StyledGameCard = styled.div<IStyledGameCardProps>`
     &::after,
     &::before {
       background: ${({ card_color }) =>
-        `linear-gradient(var(--rotate), ${card_color}, ${card_color} 43%, ${card_color})`};
+    `linear-gradient(var(--rotate), ${card_color}, ${card_color} 43%, ${card_color})`};
     }
 
     &::before {

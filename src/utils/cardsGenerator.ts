@@ -1,12 +1,11 @@
+import { SECOND_TEAM_CARDS, STARTING_TEAM_CARDS } from "../constants/cards";
 import { IMAGE_COMBINATIONS, ImageKey } from "../constants/images";
 import { CardColor } from "../enums/CardColor";
 import { Team } from "../enums/Team";
 import { ICardData } from "../interfaces/CardData.interface";
 import { shuffleArray } from "./array";
 
-const TOTAL_CARDS = 25;
-const STARTING_TEAM_CARDS = Math.ceil(TOTAL_CARDS / 3);
-const SECOND_TEAM_CARDS = STARTING_TEAM_CARDS - 1;
+
 
 export const generateCards = (): ICardData[] => {
   const imageCombinations = shuffleArray<ImageKey[]>(IMAGE_COMBINATIONS);
@@ -53,8 +52,8 @@ export const generateCards = (): ICardData[] => {
       cardsToAdd === blueCardsToAdd
         ? CardColor.Blue
         : cardsToAdd === redCardsToAdd
-        ? CardColor.Red
-        : CardColor.Netural;
+          ? CardColor.Red
+          : CardColor.Netural;
 
     const images = combination
       .splice(0, cardsToAdd)
