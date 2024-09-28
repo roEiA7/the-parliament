@@ -1,40 +1,47 @@
-import { Role } from "../enums/Role";
-import { Team } from "../enums/Team";
-import { ITurnState } from "../interfaces/GameState.interface";
-import { IRoom } from "../interfaces/room.interface";
+import { Prediction } from "../enums/Prediction";
+import { IPost } from "../interfaces/Post.interface";
 import { IUser } from "../interfaces/user.interface";
-import { v4 as uuidv4 } from "uuid";
-import { generateCards } from "./cardsGenerator";
 
 export const mockUser: IUser = {
-  id: uuidv4(),
-  role: Role.Leader,
-  team: Team.Blue,
-};
+    displayName: 'Roei',
+    id: 'Roei',
+    photoURL: "https://lh3.googleusercontent.com/a/AGNmyxbQFMJ_4-iXZHFIn_ZNkPSLxKPmcWffrzRgNN5J=s96-c"
+}
 
-export const mockTurn: ITurnState = {
-  id: uuidv4(),
-  role: Role.Leader,
-  team: Team.Blue,
-  duration: 3000,
-  startTime: Date.now(),
-};
-
-export const mockRoom: IRoom = {
-  users: [],
-  teamsReady: {
-    [Team.Blue]: false,
-    [Team.Red]: false,
-  },
-  gameStarted: false,
-  cardsData: [],
-  activeCard: null,
-  winningTeam: null,
-};
-
-export const initializeRoom = () => {
-  return {
-    ...mockRoom,
-    cardsData: generateCards(),
-  };
-};
+export const mockPost: IPost = {
+    key: 'afa',
+    title: 'הפסקת אש',
+    // description: 'הפסקת אש עד סוף היום ?',
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR71PUuTXfcY6x6DwHLvk3936OqwkGuIbGW3w&s',
+    bets: [
+        {
+            user: {},
+            amount: 1000,
+            prediction: Prediction.No,
+            timestamp: Date.now() - 1232320
+        },
+        {
+            user: mockUser,
+            amount: 820,
+            prediction: Prediction.Yes,
+            timestamp: Date.now() - 500000
+        },
+        {
+            user: { displayName: 'Y' },
+            amount: 510,
+            prediction: Prediction.Yes,
+            timestamp: Date.now()
+        },
+        {
+            user: mockUser,
+            amount: 500,
+            prediction: Prediction.No,
+            timestamp: Date.now()
+        },
+    ],
+    isOpen: true,
+    odds: {
+        [Prediction.Yes]: 2.5,
+        [Prediction.No]: 1.2
+    }
+}

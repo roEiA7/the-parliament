@@ -27,3 +27,14 @@ body::-webkit-scrollbar {
   display: flex;
   justify-content: center;
 }
+
+@media (min-width: 900px) {
+  body {
+    background-color: lightblue;
+    position: fixed;
+    display: flex;
+    height: 100dvh;
+    width: 100dvw;
+    filter: opacity(0);
+  }
+}

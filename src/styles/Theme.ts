@@ -9,3 +9,5 @@ const Theme = createTheme({
 });
 
 export default Theme;
+
+export const PAL_COLOR = '#767360';

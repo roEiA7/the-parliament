@@ -5,9 +5,11 @@ export interface IAuthContext {
   user?: IUser;
   isLoaded: boolean;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
+  signInWithFacebook: () => void;
 }
 
 export const AuthContext = createContext<IAuthContext>({
   isLoaded: false,
-  setUser: () => {},
+  setUser: () => { },
+  signInWithFacebook: () => { }
 });

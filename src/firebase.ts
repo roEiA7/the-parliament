@@ -9,13 +9,14 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCZHX8ITQR05HIjCFoOfIVqo1xP21RjWK4",
-  authDomain: "shem-code.firebaseapp.com",
-  projectId: "shem-code",
-  storageBucket: "shem-code.appspot.com",
-  messagingSenderId: "915036951489",
-  appId: "1:915036951489:web:afa7d95b351272fe599540",
-  measurementId: "G-C1H92Y4150",
+  apiKey: "AIzaSyDSgZRn6Q1LyteJXcX3LOqWjV7MG7oibZ8",
+  authDomain: "ha-parliament.firebaseapp.com",
+  databaseURL: "https://ha-parliament-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "ha-parliament",
+  storageBucket: "ha-parliament.appspot.com",
+  messagingSenderId: "888032140612",
+  appId: "1:888032140612:web:089420effb68a7e85acb11",
+  measurementId: "G-P1JF5MWPMJ"
 };
 
 // Initialize Firebase
