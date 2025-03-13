@@ -1,46 +1,121 @@
-# Getting Started with Create React App
+# The Parliament
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Live Website:** [https://ha-parliament.web.app/](https://ha-parliament.web.app/)
 
-## Available Scripts
+![Preview 1](public/preview1.png) ![Preview 2](public/preview2.png) ![Preview 3](public/preview3.png) 
 
-In the project directory, you can run:
+## Description
 
-### `npm start`
+The Parliament is a fun, real-time betting application built for friends and casual users. It allows users to place bets on various worldwide events using a system of "fake money." The application features:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* **Real-time Betting:** Live updates on betting odds and results.
+* **Worldwide Events:** Bets on a diverse range of global events.
+* **Leaderboard:** A competitive leaderboard showcasing user statistics and rankings.
+* **Fake Money System:** A fun, risk-free betting experience without real monetary involvement.
+* **Firebase Backend:** Robust and scalable backend for real-time data and user management.
+* **MUI Frontend:** A clean and responsive user interface built with Material UI.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+This project is intended for entertainment purposes only and is not associated with any real-money gambling.
 
-### `npm test`
+## Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **React:** Frontend framework.
+* **Firebase:** Backend services (Realtime Database, Authentication, Hosting).
+* **Material UI (MUI):** UI component library.
+* **JavaScript:** Programming language.
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To run this project locally, follow these steps:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  **Clone the repository:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    git clone <your-repository-url>
+    cd the-parliament
+    ```
 
-### `npm run eject`
+2.  **Install dependencies:**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    ```bash
+    npm install
+    ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3.  **Set up Firebase:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    * Create a Firebase project at [console.firebase.google.com](https://console.firebase.google.com).
+    * Enable Realtime Database and Authentication.
+    * Create a `.env.local` file in the root of your project and add your Firebase configuration:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+        ```
+        REACT_APP_FIREBASE_API_KEY=YOUR_API_KEY
+        REACT_APP_FIREBASE_AUTH_DOMAIN=YOUR_AUTH_DOMAIN
+        REACT_APP_FIREBASE_DATABASE_URL=YOUR_DATABASE_URL
+        REACT_APP_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
+        REACT_APP_FIREBASE_STORAGE_BUCKET=YOUR_STORAGE_BUCKET
+        REACT_APP_FIREBASE_MESSAGING_SENDER_ID=YOUR_SENDER_ID
+        REACT_APP_FIREBASE_APP_ID=YOUR_APP_ID
+        ```
 
-## Learn More
+    * Replace the placeholder values with your actual Firebase configuration.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4.  **Run the application:**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    ```bash
+    npm start
+    ```
+
+    This will start the development server, and you can view the application in your browser at `http://localhost:3000`.
+
+## Deployment
+
+The live website is deployed using Firebase Hosting. To deploy your own version:
+
+1.  **Install the Firebase CLI:**
+
+    ```bash
+    npm install -g firebase-tools
+    ```
+
+2.  **Log in to Firebase:**
+
+    ```bash
+    firebase login
+    ```
+
+3.  **Initialize Firebase in your project:**
+
+    ```bash
+    firebase init
+    ```
+
+    Follow the prompts to set up Firebase Hosting.
+
+4.  **Build the project:**
+
+    ```bash
+    npm run build
+    ```
+
+5.  **Deploy to Firebase Hosting:**
+
+    ```bash
+    firebase deploy --only hosting
+    ```
+
+## Contributing
+
+This project is primarily for personal use, but contributions are welcome. If you find any issues or have suggestions, please feel free to open an issue or submit a pull request.
+
+## Future Enhancements
+
+* Add more diverse betting events.
+* Implement user profiles with detailed statistics.
+* Improve the UI/UX based on user feedback.
+* Add more features to the leaderboard.
+* Add more visual feedback to the betting proccess.
+* Add push notifications.
+
+## License
+
+This project is licensed under the MIT License.
