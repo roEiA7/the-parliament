@@ -7,36 +7,45 @@ import "./App.css";
 import MainPage from "./pages/MainPage";
 import { StyledMainPageContainer } from "./pages/MainPage/StyledMainPageContainer.styled";
 import NavBar from "./pages/MainPage/NavBar";
+import LeaderboardPage from "./pages/LeaderboardPage";
+import Header from "./components/Header";
+import ProfilePage from "./pages/ProfilePage";
+import { FirebaseProvider } from "./context/FirebaseProvider";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
 
   return (
     <RTL>
       <ThemeProvider theme={Theme}>
-        <AuthProvider>
-          <Router>
-            <StyledMainPageContainer>
-              <div className="header">
-                <span>הפרלמנט</span>
-              </div>
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <MainPage />
-                  }
-                />
-                <Route
-                  path="*"
-                  element={
-                    <MainPage />
-                  }
-                />
-              </Routes>
-              <NavBar />
-            </StyledMainPageContainer>
-          </Router>
-        </AuthProvider>
+        <FirebaseProvider>
+          <AuthProvider>
+            <Router>
+              <StyledMainPageContainer>
+                <Header />
+                <Routes>
+                  <Route path="/" element={<MainPage />} />
+                  <Route path="/leaderboards" element={<LeaderboardPage />} />
+                  <Route path="/profile" element={
+                    <ProtectedRoute path="/profile">
+                      <ProfilePage />
+                    </ProtectedRoute>
+                  } >
+                  </Route>
+                  <Route path="/secret-admin" element={
+                    <ProtectedRoute path="/secret-admin">
+                      <AdminPage />
+                    </ProtectedRoute>
+                  } ></Route>
+                  <Route path="*" element={<MainPage />}
+                  />
+                </Routes>
+                <NavBar />
+              </StyledMainPageContainer>
+            </Router>
+          </AuthProvider>
+        </FirebaseProvider>
       </ThemeProvider>
     </RTL>
   );

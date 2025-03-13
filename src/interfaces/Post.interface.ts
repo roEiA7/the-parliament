@@ -12,5 +12,7 @@ export interface IPost {
   odds: OddsType;
   bets: IBet[];
   isOpen: boolean;
+  outcome?: Prediction;
+  order?: number;
 }
 

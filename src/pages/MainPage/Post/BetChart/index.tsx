@@ -1,4 +1,3 @@
-import React, { PureComponent } from 'react';
 import {
     ScatterChart,
     Scatter,
@@ -7,7 +6,6 @@ import {
     ZAxis,
     CartesianGrid,
     Tooltip,
-    Legend,
     ResponsiveContainer,
 } from 'recharts';
 import { IBet } from '../../../../interfaces/Bet.interface';
@@ -16,6 +14,7 @@ import { coin } from '../../../../constants/symbols';
 import ProfileAvatar from '../../../../components/ProfileAvatar';
 import { Badge } from '@mui/material';
 import { timestampToDate } from '../../../../utils/time';
+import { IUser } from '../../../../interfaces/user.interface';
 
 const AvatarShape = (props: any) => {
     const { cx, cy, user, prediction } = props; // cx, cy are the coordinates of the point
@@ -25,7 +24,7 @@ const AvatarShape = (props: any) => {
     return (
         <foreignObject x={cx - 20} y={cy - 20} width="30" height="40">
             <Badge color={color} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }} overlap="circular" sx={{ backgroundColor: bgColor, borderRadius: '50%', padding: 0.4 }} >
-                <ProfileAvatar user={user} sx={{ width: 24, height: 24, backgroundColor: 'beige' }} />
+                <ProfileAvatar user={user} sx={{ width: 24, height: 24, backgroundColor: 'beige', color: 'black' }} />
             </Badge>
         </foreignObject>
     );
@@ -66,14 +65,14 @@ const CustomTooltip = ({ active, payload }: any) => {
     return null;
 };
 
-const BetChart = ({ bets }: { bets: IBet[] }) => {
+const BetChart = ({ bets, betsUsers }: { bets: IBet[], betsUsers: IUser[] }) => {
 
     const scatters = bets.map((bet, key) =>
         <Scatter
-            name={bet.user.displayName || 'אנונימי'}
+            name={betsUsers[key].displayName || 'אנונימי'}
             fill={bet.prediction === Prediction.Yes ? '#2e7d32' : '#d32f2f'}
-            shape={<AvatarShape user={bet.user} prediction={bet.prediction} />}
-            data={[{ x: bet.timestamp, y: bet.amount, z: bet.user.displayName || 'אנונימי' }]}
+            shape={<AvatarShape user={betsUsers[key]} prediction={bet.prediction} />}
+            data={[{ x: bet.timestamp, y: bet.amount, z: betsUsers[key].displayName || 'אנונימי' }]}
         />
     )
 

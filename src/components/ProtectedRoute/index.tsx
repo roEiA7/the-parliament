@@ -15,22 +15,15 @@ const ProtectedRoute = ({ children, path }: IProtectedRouteProps) => {
       return "/auth";
     }
 
-    // if (room?.gameStarted) {
-    //   // if (room.isGameOver) {
-    //   //   return "/over";
-    //   // }
-    //   return "/game";
-    // }
-
-    return "/lobby";
+    return path;
   };
 
   const redirectTo = getRedirectTo();
   const shouldRedirect = redirectTo !== path;
-  const isAppLoaded = isUserLoaded; // Todo: load posts
+  const isAppLoaded = isUserLoaded;
 
   if (!isAppLoaded) {
-    return null; // todo: loading skelton
+    return null;
   }
 
   return shouldRedirect ? <Navigate to={redirectTo} /> : children;

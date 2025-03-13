@@ -15,6 +15,8 @@ import Bet from './Bet';
 import BetChip from './BetChip';
 import BetChart from './BetChart';
 import { useAuthContext } from '../../../context/AuthProvider';
+import { useFirebaseContext } from '../../../context/FirebaseProvider';
+import { Prediction } from '../../../enums/Prediction';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -46,16 +48,19 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 const Post = ({ post }: { post: IPost }) => {
     const [expanded, setExpanded] = React.useState(false);
     const { user } = useAuthContext();
+    const { users } = useFirebaseContext();
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
-    const userBet = post.bets.find(bet => bet.user.id === user?.id);
-    const isBetEnabled = post.isOpen && !userBet;
+    const userBet = post.bets.find(bet => bet.userId === user?.id);
+    const betsUsers = post.bets.map(bet => users.find(usr => usr.id === bet.userId) || {});
+    const color = post.outcome === Prediction.Yes ? '#2e7d32' : '#d32f2f';
+    const boxShadow = post.outcome != null ? `0 0 4px 2px ${color};` : '';
 
     return (
-        <Card sx={{ width: 300 }}>
+        <Card sx={{ width: 300, boxShadow }} id={post.key}>
             <CardHeader
                 title={post.title}
                 sx={{ textAlign: 'center', padding: 1 }}
@@ -68,19 +73,22 @@ const Post = ({ post }: { post: IPost }) => {
                 sx={{ boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px" }}
             />
             <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                {post.description && <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                {post.description && <Typography variant="body2" sx={{ color: 'text.secondary', marginBottom: 2 }}>
                     {post.description}
                 </Typography>}
-                {/* {!isBetEnabled && <Typography variant="body2" sx={{ color: 'text.secondary' }}>ההימור סגור</Typography>} */}
-                <Bet odds={post.odds} isBetEnabled={isBetEnabled} userBet={userBet} />
+                <Bet postKey={post.key} odds={post.odds} isOpen={post.isOpen} userBet={userBet} outcome={post.outcome} />
             </CardContent>
             <CardActions
                 sx={{ justifyContent: 'space-between', width: '85%', margin: 'auto' }}  >
                 <Box sx={{ display: 'flex', gap: 1 }}>
-                    {post.bets.slice(0, 3).map((bet, index) => <BetChip bet={bet} key={index} />)}
+                    {post.bets.length === 0
+                        ? <Typography variant='button'> תהיה הראשון לנחש!</Typography>
+                        : post.bets.slice(0, 3).map((bet, index) => <BetChip bet={bet} user={betsUsers[index]} key={index} />)
+                    }
                 </Box>
 
                 <ExpandMore
+                    disabled={post.bets.length === 0}
                     expand={expanded}
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
@@ -92,7 +100,7 @@ const Post = ({ post }: { post: IPost }) => {
             </CardActions>
 
             <Collapse in={expanded} timeout="auto" unmountOnExit sx={{ fontSize: 12 }}>
-                <BetChart bets={post.bets} />
+                <BetChart bets={post.bets} betsUsers={betsUsers} />
             </Collapse>
         </Card >
     );

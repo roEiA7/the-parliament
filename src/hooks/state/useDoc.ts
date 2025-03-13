@@ -29,7 +29,7 @@ export const useDoc = <IDocData>(
 
       if (doc.exists()) {
         const data = doc.data();
-        setData((isEmpty(data) ? undefined : data) as IDocData);
+        setData((isEmpty(data) ? undefined : data.array) as IDocData);
       }
     });
 
@@ -37,7 +37,7 @@ export const useDoc = <IDocData>(
   }, [docRef]);
 
   const updateData: Dispatch<SetStateAction<IDocData>> = async (value) => {
-    const newDocData = isFunction(value) ? value(data) : value;
+    const newDocData = { array: isFunction(value) ? value(data) : value }
     await setDoc(docRef, newDocData || {});
   };
 
